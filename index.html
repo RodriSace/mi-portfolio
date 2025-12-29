@@ -34,12 +34,13 @@
         <div class="nav-content">
             <div class="logo">Rodrigo</div>
             <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-mi">Sobre mí</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#experiencia">Experiencia</a></li>
-                <li><a href="#testimonios">Testimonios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#inicio">Home</a></li>
+                <li><a href="#sobre-mi">About</a></li>
+                <li><a href="#proyectos">Projects</a></li>
+                <li><a href="#experiencia">Experience</a></li>
+                <li><a href="#approach">Approach</a></li>
+                <li><a href="#testimonios">Testimonials</a></li>
+                <li><a href="#contacto">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="theme-toggle" class="btn-theme" aria-label="Cambiar tema">🌗</button>
@@ -51,21 +52,12 @@
     <!-- HERO -->
     <section id="inicio" class="hero">
         <div class="hero-content">
-            <div class="hero-grid">
-                <div class="hero-copy">
-                    <h1>Transforming Ideas into <span class="nombre">Digital Reality</span></h1>
-                    <p class="subtitle">Hi! I'm Rodrigo, a Web Developer based in Spain. I create modern, accessible, and performant web applications.</p>
-                    <div class="hero-ctas">
-                        <a href="#proyectos" class="btn-primary">Show my work</a>
-                        <a href="#contacto" class="btn-outline">Let's talk</a>
-                    </div>
-                </div>
-                <div class="hero-avatar" aria-hidden="true">
-                    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#001322"/><stop offset="1" stop-color="#002244"/></linearGradient></defs>
-                        <rect width="100%" height="100%" rx="18" fill="url(#lg)" />
-                        <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="#00d4ff" font-family="Space Grotesk, Inter, sans-serif" font-size="18">Rodrigo</text>
-                    </svg>
+            <div class="hero-text">
+                <h1 class="text-generate">Transforming Ideas into <span class="nombre">Digital Reality</span></h1>
+                <p class="subtitle">Hi! I'm Rodrigo, a Web Developer based in Spain. I create modern, accessible, and performant web applications.</p>
+                <div class="hero-ctas">
+                    <a href="#proyectos" class="btn-primary">Show my work</a>
+                    <a href="#contacto" class="btn-outline">Let's talk</a>
                 </div>
             </div>
         </div>
@@ -74,29 +66,35 @@
     <!-- SOBRE MÍ -->
     <section id="sobre-mi" class="sobre-mi">
         <div class="container">
-            <h2 class="section-title">Sobre mí</h2>
-            <div class="sobre-content">
-                <p class="intro">
-                    ¡Hola! Soy <strong>Rodrigo de la Hoz López</strong>, tengo 21 años y actualmente estoy cursando 4º año en la <strong>Escuela Superior de Ingeniería Informática</strong>. Mi pasión por la tecnología comenzó durante mi bachillerato de ciencias en el Colegio Santo Tomás de Ciudad Real, donde descubrí el fascinante mundo de la programación.
-                </p>
-                
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3>🎓 Formación Académica</h3>
-                        <ul>
-                                <li><strong>Grado en Ingeniería Informática</strong> - Escuela Superior de Ingeniería Informática (2019 - presente)</li>
-                                <li><strong>Bachillerato de Ciencias</strong> - Colegio Santo Tomás, Ciudad Real (2017 - 2019)</li>
-                                <li><strong>Inglés:</strong> B1 Certificado</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h3>💼 Experiencia Profesional</h3>
-                        <ul>
-                            <li><strong>Desarrollador Web</strong> - Creación y mantenimiento de sitios web responsive con HTML, CSS y JavaScript</li>
-                            <li><strong>Camarero</strong> - Experiencia en atención al cliente y trabajo en equipo en entorno de alta demanda</li>
-                        </ul>
-                    </div>
+            <h2 class="section-title">About Me</h2>
+            <div class="bento-grid">
+                <div class="bento-item large">
+                    <h3>Hello! I'm Rodrigo</h3>
+                    <p>I'm a 21-year-old Computer Engineering student at UCLM, passionate about creating digital experiences. My journey in tech started in high school, and I've been building web applications ever since.</p>
+                </div>
+                <div class="bento-item">
+                    <h3>My Tech Stack</h3>
+                    <p>HTML, CSS, JavaScript, React, Node.js, Python, Git</p>
+                </div>
+                <div class="bento-item">
+                    <h3>Passionate About</h3>
+                    <p>Clean code, user experience, and solving real-world problems through technology.</p>
+                </div>
+                <div class="bento-item">
+                    <h3>Education</h3>
+                    <p>Computer Engineering at UCLM (2019 - present)</p>
+                </div>
+                <div class="bento-item">
+                    <h3>Currently Learning</h3>
+                    <p>Advanced React, TypeScript, and cloud technologies.</p>
+                </div>
+                <div class="bento-item">
+                    <h3>Fun Fact</h3>
+                    <p>I love gaming and often draw inspiration from games for my projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
                     
                     <div class="info-card">
                         <h3>🚀 ¿Qué me motiva?</h3>
@@ -201,31 +199,52 @@
         </div>
     </section>
 
-    <!-- TIMELINE -->
+    <!-- EXPERIENCIA -->
     <section id="experiencia" class="timeline-section">
         <div class="container">
-            <h2 class="section-title">Línea temporal</h2>
+            <h2 class="section-title">My Journey</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <span class="timeline-year">2019</span>
                     <div class="timeline-content">
-                        <h4>Bachillerato - Colegio Santo Tomás</h4>
-                        <p>Inicio de interés por programación y ciencias.</p>
+                        <h4>High School - Colegio Santo Tomás</h4>
+                        <p>Developed interest in programming and sciences.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <span class="timeline-year">2019 - presente</span>
+                    <span class="timeline-year">2019 - present</span>
                     <div class="timeline-content">
-                        <h4>Grado en Ingeniería Informática</h4>
-                        <p>Estudios en la Escuela Superior de Ingeniería Informática.</p>
+                        <h4>Computer Engineering Degree</h4>
+                        <p>Studying at Escuela Superior de Ingeniería Informática.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <span class="timeline-year">2024</span>
                     <div class="timeline-content">
-                        <h4>Proyecto Pokémon</h4>
-                        <p>Desarrollo de proyecto individual consumiendo PokéAPI.</p>
+                        <h4>Pokemon Project</h4>
+                        <p>Developed individual project consuming PokeAPI.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPROACH -->
+    <section id="approach" class="approach">
+        <div class="container">
+            <h2 class="section-title">My Approach</h2>
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <h3>Planning & Strategy</h3>
+                    <p>We collaborate to map out your website's goals, target audience, and key functionalities.</p>
+                </div>
+                <div class="approach-card">
+                    <h3>Design & Development</h3>
+                    <p>I create clean, responsive designs and implement them with modern technologies.</p>
+                </div>
+                <div class="approach-card">
+                    <h3>Testing & Launch</h3>
+                    <p>Rigorous testing ensures quality, then we launch and maintain the project.</p>
                 </div>
             </div>
         </div>
