@@ -6,12 +6,15 @@
 }
 
 :root {
-    --color-fondo: #0a0e27;
-    --color-fondo-secondary: #141b3d;
-    --color-acento: #00d4ff;
-    --color-acento-hover: #00a3cc;
+    --color-fondo: #000319;
+    --color-fondo-secondary: #0a0e27;
+    --color-acento: #9333ea;
+    --color-acento-hover: #7c3aed;
     --color-texto: #e4e4e7;
     --color-texto-secondary: #a1a1aa;
+    --radius: 12px;
+    --glass: rgba(255,255,255,0.03);
+    --transition-fast: 200ms;
 }
 
 html {
@@ -19,10 +22,85 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
     line-height: 1.6;
+    transition: background-color var(--transition-fast) ease, color var(--transition-fast) ease;
+}
+
+/* NAVEGACIÓN FLOTANTE */
+.floating-nav {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: fit-content;
+    max-width: 70vw;
+    background: rgba(17, 25, 40, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 12px;
+    padding: 10px 20px;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.nav-links a:hover {
+    color: var(--color-acento);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-cv {
+    background: var(--color-acento);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background var(--transition-fast);
+}
+
+.btn-cv:hover {
+    background: var(--color-acento-hover);
+}
+
+.btn-theme {
+    background: none;
+    border: none;
+    color: var(--color-texto);
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
 }
 
 .container {
@@ -30,22 +108,6 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
-
-/* NAVEGACIÓN */
-header {
-    background-color: rgba(10, 14, 39, 0.95);
-    backdrop-filter: blur(10px);
-    :root {
-        --color-fondo: #0a0e27;
-        --color-fondo-secondary: #141b3d;
-        --color-acento: #00d4ff;
-        --color-acento-hover: #00a3cc;
-        --color-texto: #e4e4e7;
-        --color-texto-secondary: #a1a1aa;
-        --radius: 12px;
-        --glass: rgba(255,255,255,0.03);
-        --transition-fast: 200ms;
-    }
 
     /* Tema claro (se puede activar con .theme-light en body) */
     .theme-light {
@@ -55,19 +117,6 @@ header {
         --color-acento-hover: #0052a3;
         --color-texto: #0b1220;
         --color-texto-secondary: #374151;
-    }
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 212, 255, 0.1);
-}
-    body {
-        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--color-fondo);
-        color: var(--color-texto);
-        line-height: 1.6;
-        transition: background-color var(--transition-fast) ease, color var(--transition-fast) ease;
     }
 
 nav {
@@ -164,6 +213,17 @@ nav {
     background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
     top: -250px;
     right: -250px;
+    border-radius: 50%;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
     border-radius: 50%;
 }
 
@@ -580,4 +640,41 @@ footer {
     .intro {
         font-size: 1rem;
     }
+}
+
+/* TESTIMONIOS */
+.testimonios {
+    background-color: var(--color-fondo-secondary);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonial-card {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-acento);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.15);
+}
+
+.testimonial-card p {
+    color: var(--color-texto);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card cite {
+    color: var(--color-acento);
+    font-weight: 600;
 }

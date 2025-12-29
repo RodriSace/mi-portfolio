@@ -29,40 +29,35 @@
         </script>
 </head>
 <body>
-    <!-- NAVEGACIÓN -->
-    <header>
-        <nav>
+    <!-- NAVEGACIÓN FLOTANTE -->
+    <nav class="floating-nav">
+        <div class="nav-content">
             <div class="logo">Rodrigo</div>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-mi">Sobre mí</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#timeline">Trayectoria</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="theme-toggle" class="btn-theme" aria-label="Cambiar tema">🌗</button>
-                <a class="btn-cv" href="cv.pdf" download aria-label="Descargar CV">Descargar CV</a>
+                <a class="btn-cv" href="cv.pdf" download aria-label="Descargar CV">CV</a>
             </div>
-            <div class="hamburger" role="button" aria-label="Abrir menú" aria-expanded="false" tabindex="0">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- HERO -->
     <section id="inicio" class="hero">
         <div class="hero-content">
             <div class="hero-grid">
                 <div class="hero-copy">
-                    <h1>Hola, soy <span class="nombre">Rodrigo de la Hoz</span></h1>
-                    <p class="subtitle">Desarrollador web full-stack en formación — interfaces limpias, accesibles y con buen rendimiento.</p>
+                    <h1>Transforming Ideas into <span class="nombre">Digital Reality</span></h1>
+                    <p class="subtitle">Hi! I'm Rodrigo, a Web Developer based in Spain. I create modern, accessible, and performant web applications.</p>
                     <div class="hero-ctas">
-                        <a href="#proyectos" class="btn-primary">Ver proyectos</a>
-                        <a href="#contacto" class="btn-outline">Contactar</a>
+                        <a href="#proyectos" class="btn-primary">Show my work</a>
+                        <a href="#contacto" class="btn-outline">Let's talk</a>
                     </div>
                 </div>
                 <div class="hero-avatar" aria-hidden="true">
@@ -207,7 +202,7 @@
     </section>
 
     <!-- TIMELINE -->
-    <section id="timeline" class="timeline-section">
+    <section id="experiencia" class="timeline-section">
         <div class="container">
             <h2 class="section-title">Línea temporal</h2>
             <div class="timeline">
@@ -231,6 +226,23 @@
                         <h4>Proyecto Pokémon</h4>
                         <p>Desarrollo de proyecto individual consumiendo PokéAPI.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="testimonios">
+        <div class="container">
+            <h2 class="section-title">Testimonios</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Excelente trabajo en el proyecto. Rodrigo demostró gran habilidad y dedicación."</p>
+                    <cite>- Profesor de la UCLM</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Un desarrollador prometedor con mucho potencial. Siempre dispuesto a aprender."</p>
+                    <cite>- Compañero de clase</cite>
                 </div>
             </div>
         </div>
