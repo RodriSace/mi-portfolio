@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // THEME TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light');
     function applyTheme(theme) {
         if (theme === 'light') document.body.classList.add('theme-light'); else document.body.classList.remove('theme-light');
         if (themeToggle) themeToggle.textContent = theme === 'light' ? '🌞' : '🌗';

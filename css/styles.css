@@ -29,15 +29,15 @@
 
 /* Tema claro */
 .theme-light {
-    --color-fondo: #f7fafc;
-    --color-fondo-secondary: #ffffff;
+    --color-fondo: #ffffff;
+    --color-fondo-secondary: #f8f9fa;
     --color-background: #ffffff;
     --color-background-secondary: #f1f5f9;
     
     --color-acento: #0066cc;
     --color-acento-hover: #0052a3;
-    --color-texto: #0b1220;
-    --color-texto-secondary: #374151;
+    --color-texto: #000000;
+    --color-texto-secondary: #333333;
     
     --color-border: rgba(0, 0, 0, 0.1);
     --color-glass: rgba(255, 255, 255, 0.85); /* Un poco más opaco en light mode */
