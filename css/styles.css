@@ -819,6 +819,11 @@ section {
     transition: transform 0.3s;
 }
 
+.proyecto-card[data-proj="pokemon"] .proyecto-img,
+.proyecto-card[data-proj="gramola"] .proyecto-img {
+    height: 300px;
+}
+
 .proyecto-card:hover .proyecto-img {
     transform: scale(1.05);
 }
