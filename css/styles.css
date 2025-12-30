@@ -183,7 +183,7 @@ body {
 .btn-outline { border: 2px solid var(--accent); color: var(--accent); padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; }
 .btn-secondary { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; }
 
-/* Placeholders de imagen */
+/* Placeholders de imagen (DESKTOP) */
 .hero-image { display: flex; justify-content: center; }
 .image-placeholder {
     width: 350px;
@@ -198,6 +198,23 @@ body {
     color: var(--accent);
     position: relative;
 }
+
+/* SOBRE MÍ - IMAGEN Y LAYOUT */
+.sobre-mi { padding: 4rem 2rem; background: var(--bg-card-alt); }
+.about-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+.profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.profile-avatar { 
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 4px solid var(--bg-card);
+    box-shadow: 0 8px 32px rgba(147, 51, 234, 0.2);
+    margin-bottom: 1rem;
+}
+.profile-photo { width: 100%; height: 100%; object-fit: cover; }
+.profile-status { font-size: 0.9rem; color: #10b981; margin-top: 0.5rem; display: flex; align-items: center; gap: 5px; }
+.status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; }
 
 /* GENERAL */
 section { padding: 5rem 2rem; }
@@ -263,8 +280,21 @@ footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border);
         top: 15px;
     }
     
-    .btn-cv { display: none; } /* Ocultar CV en header móvil para ahorrar espacio */
-    .hamburger { display: flex; } /* Mostrar hamburguesa */
+    .btn-cv { display: none; } 
+    .hamburger { display: flex; } 
+
+    /* REDUCCIÓN DE IMÁGENES EN MÓVIL */
+    .image-placeholder {
+        width: 220px; /* Reducido de 350px a 220px */
+        height: 220px;
+        font-size: 3rem; /* Icono más pequeño */
+        margin-bottom: 2rem;
+    }
+    
+    .profile-avatar {
+        width: 140px; /* Reducido de 200px a 140px */
+        height: 140px;
+    }
 
     /* Menú móvil "Tipo App" */
     .nav-links {
@@ -273,33 +303,24 @@ footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border);
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: var(--bg-main); /* Fondo sólido del tema actual */
+        background: var(--bg-main);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        padding-top: 60px; /* Espacio para no tapar header si fuera necesario */
-        
-        /* Animación de entrada */
+        padding-top: 60px;
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        z-index: 1500; /* Debajo del botón hamburguesa pero encima de todo */
+        z-index: 1500;
     }
 
-    /* Clase activa para mostrar menú */
-    .nav-links.active {
-        transform: translateX(0);
-    }
-
-    .nav-links a {
-        font-size: 1.4rem; /* Texto grande táctil */
-        font-weight: 700;
-    }
+    .nav-links.active { transform: translateX(0); }
+    .nav-links a { font-size: 1.4rem; font-weight: 700; }
 
     /* Ajustes generales móvil */
     .hero-content { grid-template-columns: 1fr; text-align: center; }
     .hero h1 { font-size: 2.5rem; }
-    .hero-image { display: none; } /* Ocultar imagen decorativa en móvil si molesta, o ajustar */
+    .hero-image { display: flex; justify-content: center; order: -1; margin-bottom: 2rem; } /* Poner imagen arriba si se quiere */
     .contact-layout { grid-template-columns: 1fr; }
-    .image-placeholder { width: 280px; height: 280px; margin: 0 auto; }
+    .about-content { grid-template-columns: 1fr; }
 }

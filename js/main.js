@@ -7,11 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
     function toggleMenu() {
-        // Alternar clases
         const isActive = navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
         
-        // Bloquear scroll del fondo cuando el menú está abierto (Efecto App)
+        // Bloquear scroll para efecto APP
         if (isActive) {
             body.style.overflow = 'hidden';
         } else {
@@ -26,37 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cerrar menú al pulsar un enlace
+    // Cerrar al pulsar enlace
     links.forEach(link => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('active')) {
-                toggleMenu(); // Cierra y restaura scroll
+                toggleMenu();
             }
         });
     });
 
-    // --- PROTECCIÓN DE RESIZE (IMPORTANTE PARA QUE FUNCIONE EN AMBOS) ---
-    // Si el usuario cambia el tamaño de ventana a modo escritorio (> 900px),
-    // forzamos el cierre del menú móvil para recuperar el scroll y diseño normal.
+    // Resetear al agrandar ventana (PC)
     window.addEventListener('resize', () => {
         if (window.innerWidth > 900 && navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
             hamburger.classList.remove('active');
-            body.style.overflow = ''; // Recuperar scroll
+            body.style.overflow = '';
         }
     });
 
-    // --- CAMBIO DE TEMA (CLARO / OSCURO) ---
+    // --- TEMA CLARO/OSCURO ---
     const themeBtn = document.getElementById('theme-toggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Cargar tema guardado o defecto
     const savedTheme = localStorage.getItem('theme');
+    
     if (savedTheme === 'light') {
         body.classList.add('theme-light');
         themeBtn.textContent = '🌞';
     } else {
-        body.classList.remove('theme-light'); // Default dark
+        body.classList.remove('theme-light');
         themeBtn.textContent = '🌗';
     }
 
@@ -67,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // --- SCROLL SUAVE PARA ENLACES INTERNOS ---
+    // --- SCROLL SUAVE ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -75,26 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === '#') return;
             const target = document.querySelector(targetId);
             if (target) {
-                // Ajuste para el header flotante
                 const headerOffset = 100;
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
             }
         });
     });
 
-    // --- MODAL DE PROYECTOS (Básico) ---
+    // --- MODAL SIMPLE ---
     const modal = document.getElementById('project-modal');
     const modalBody = modal.querySelector('#modal-body');
     const modalTitle = modal.querySelector('#modal-title');
     const closeBtn = modal.querySelector('.modal-close');
 
-    // Datos de ejemplo (puedes ampliar esto)
     const projectDetails = {
         'pokemon': {
             title: 'Explorador Pokémon',
@@ -110,19 +99,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalTitle.textContent = projectDetails[projId].title;
                 modalBody.innerHTML = projectDetails[projId].html;
                 modal.setAttribute('aria-hidden', 'false');
-                body.style.overflow = 'hidden'; // Bloquear scroll
+                body.style.overflow = 'hidden';
             }
         });
     });
 
     function closeModal() {
         modal.setAttribute('aria-hidden', 'true');
-        body.style.overflow = ''; // Restaurar scroll
+        body.style.overflow = '';
     }
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    
-    // Cerrar al pulsar fuera del modal
     window.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
