@@ -143,13 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // THEME TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light');
+    let currentTheme = localStorage.getItem('theme');
+    if (!currentTheme) {
+        currentTheme = 'light';
+        localStorage.setItem('theme', 'light');
+    }
     function applyTheme(theme) {
         if (theme === 'light') document.body.classList.add('theme-light'); else document.body.classList.remove('theme-light');
         if (themeToggle) themeToggle.textContent = theme === 'light' ? '🌞' : '🌗';
         localStorage.setItem('theme', theme);
     }
-    applyTheme(currentTheme === 'light' ? 'light' : 'dark');
+    applyTheme(currentTheme);
     if (themeToggle) themeToggle.addEventListener('click', () => applyTheme(document.body.classList.contains('theme-light') ? 'dark' : 'light'));
 
     // MODAL PROYECTOS
