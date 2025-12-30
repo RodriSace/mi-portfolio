@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,16 +17,16 @@
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portfolio, desarrollador web, Rodrigo, HTML, CSS, JavaScript">
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Rodrigo de la Hoz López",
-          "url": "",
-          "jobTitle": "Desarrollador Web",
-          "sameAs": ["https://github.com/rodrisace","https://www.linkedin.com/in/rodrigo-de-la-hoz-l%C3%B3pez-53b9b8388/"]
-        }
-        </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Rodrigo de la Hoz López",
+      "url": "",
+      "jobTitle": "Desarrollador Web",
+      "sameAs": ["https://github.com/rodrisace","https://www.linkedin.com/in/rodrigo-de-la-hoz-l%C3%B3pez-53b9b8388/"]
+    }
+    </script>
 </head>
 <body>
     <!-- NAVEGACIÓN FLOTANTE -->
@@ -52,13 +51,67 @@
 
     <!-- HERO -->
     <section id="inicio" class="hero">
+        <div class="hero-background">
+            <div class="hero-gradient"></div>
+            <div class="hero-particles">
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
+            </div>
+        </div>
         <div class="hero-content">
             <div class="hero-text">
-                <h1 class="text-generate">Transforming Ideas into <span class="nombre">Digital Reality</span></h1>
-                <p class="subtitle">Hi! I'm Rodrigo, a Web Developer based in Spain. I create modern, accessible, and performant web applications.</p>
+                <div class="hero-badge">
+                    <span>Available for work</span>
+                    <div class="badge-dot"></div>
+                </div>
+                <h1 class="text-generate">
+                    Hi, I'm <span class="nombre">Rodrigo</span><br>
+                    <span class="title-highlight">Full-Stack Developer</span>
+                </h1>
+                <p class="subtitle">
+                    I create modern, accessible, and performant web applications.
+                    Passionate about clean code, user experience, and solving real-world problems through technology.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-text">Years Experience</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-text">Projects Completed</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-text">Technologies</span>
+                    </div>
+                </div>
                 <div class="hero-ctas">
-                    <a href="#proyectos" class="btn-primary">Show my work</a>
-                    <a href="#contacto" class="btn-outline">Let's talk</a>
+                    <a href="#proyectos" class="btn-primary">
+                        <i class="fas fa-eye"></i> View My Work
+                    </a>
+                    <a href="#contacto" class="btn-outline">
+                        <i class="fas fa-envelope"></i> Get In Touch
+                    </a>
+                    <a href="cv.pdf" class="btn-secondary" download>
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-code"></i>
+                        <div class="floating-elements">
+                            <div class="floating-element elem-1"><i class="fab fa-react"></i></div>
+                            <div class="floating-element elem-2"><i class="fab fa-node-js"></i></div>
+                            <div class="floating-element elem-3"><i class="fab fa-python"></i></div>
+                            <div class="floating-element elem-4"><i class="fab fa-js-square"></i></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,47 +121,95 @@
     <section id="sobre-mi" class="sobre-mi">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="bento-grid">
-                <div class="bento-item large">
-                    <h3>Hello! I'm Rodrigo</h3>
-                    <p>I'm a 21-year-old Computer Engineering student at UCLM, passionate about creating digital experiences. My journey in tech started in high school, and I've been building web applications ever since.</p>
+            <div class="about-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <div class="profile-avatar">
+                            <img src="images/Foto_Orla.png" alt="Rodrigo de la Hoz" class="profile-photo">
+                        </div>
+                        <div class="profile-status">
+                            <div class="status-dot"></div>
+                            <span>Available for work</span>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h3>Rodrigo de la Hoz López</h3>
+                        <p class="profile-title">Full-Stack Web Developer</p>
+                        <p class="profile-location"><i class="fas fa-map-marker-alt"></i> Ciudad Real, Spain</p>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">Years Coding</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">Projects</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Technologies</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bento-item">
-                    <h3>My Tech Stack</h3>
-                    <p>HTML, CSS, JavaScript, React, Node.js, Python, Git</p>
-                </div>
-                <div class="bento-item">
-                    <h3>Passionate About</h3>
-                    <p>Clean code, user experience, and solving real-world problems through technology.</p>
-                </div>
-                <div class="bento-item">
-                    <h3>Education</h3>
-                    <p>Computer Engineering at UCLM (2019 - present)</p>
-                </div>
-                <div class="bento-item">
-                    <h3>Currently Learning</h3>
-                    <p>Advanced React, TypeScript, and cloud technologies.</p>
-                </div>
-                <div class="bento-item">
-                    <h3>Fun Fact</h3>
-                    <p>I love gaming and often draw inspiration from games for my projects.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-                    
-                    <div class="info-card">
-                        <h3>🚀 ¿Qué me motiva?</h3>
+
+                <div class="about-details">
+                    <div class="about-text">
                         <p>
-                            Me apasiona crear soluciones digitales que combinen funcionalidad y diseño. Disfruto aprendiendo nuevas tecnologías y enfrentándome a desafíos que me permitan crecer como desarrollador. Mi objetivo es seguir especializándome en desarrollo web full-stack y contribuir a proyectos innovadores.
+                            Hello! I'm Rodrigo, a 21-year-old Computer Engineering student at Universidad de Castilla-La Mancha (UCLM) with a passion for creating exceptional digital experiences. My journey in technology began during high school, where I discovered my love for programming and problem-solving.
+                        </p>
+                        <p>
+                            Currently in my final year of studies, I've been actively developing web applications and expanding my skills in modern technologies. I specialize in full-stack web development, with strong foundations in HTML, CSS, JavaScript, and experience with frameworks like React and Node.js.
+                        </p>
+                        <p>
+                            I'm passionate about clean code, user experience design, and solving real-world problems through technology. When I'm not coding, you can find me gaming, exploring new technologies, or contributing to open-source projects.
                         </p>
                     </div>
-                    
-                    <div class="info-card">
-                        <h3>🎯 Actualmente</h3>
-                        <p>
-                            Estoy finalizando mis estudios de Ingeniería Informática mientras desarrollo proyectos web personales para ampliar mi portfolio. Busco oportunidades para aplicar mis conocimientos en entornos profesionales y seguir aprendiendo de equipos experimentados.
-                        </p>
+
+                    <div class="cv-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Education</h4>
+                                <p>Computer Engineering (Ingeniería Informática)</p>
+                                <p class="highlight-detail">Universidad de Castilla-La Mancha • 2019 - Present</p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Experience</h4>
+                                <p>Web Development Projects</p>
+                                <p class="highlight-detail">Personal & Academic Projects • 2021 - Present</p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Languages</h4>
+                                <p>Spanish (Native), English (B2)</p>
+                                <p class="highlight-detail">Professional working proficiency</p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Interests</h4>
+                                <p>Gaming, Technology, Open Source</p>
+                                <p class="highlight-detail">Problem-solving & continuous learning</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
