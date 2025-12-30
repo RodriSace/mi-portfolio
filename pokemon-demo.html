@@ -59,7 +59,7 @@
         .spheal {
             width: 200px;
             height: 200px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23ffffff"/><circle cx="35" cy="35" r="8" fill="%23000000"/><circle cx="65" cy="35" r="8" fill="%23000000"/><path d="M 40 60 Q 50 70 60 60" stroke="%23000000" stroke-width="3" fill="none"/></svg>') no-repeat center;
+            background: url('images/pokemon.png') no-repeat center;
             background-size: contain;
             transition: transform 0.3s ease;
         }
@@ -70,18 +70,22 @@
 
         .spheal.attacking {
             animation: attack 0.5s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
         .spheal.defending {
             animation: defend 0.8s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
         }
 
         .spheal.hurt {
             animation: hurt 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
         }
 
         .spheal.tired {
             animation: tired 1s ease;
+            box-shadow: 0 0 20px rgba(128, 128, 128, 0.5);
         }
 
         @keyframes idle {
@@ -219,33 +223,31 @@
             transform: translateY(-2px);
         }
 
-        @media (max-width: 768px) {
-            .demo-container {
-                padding: 20px;
-            }
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(147, 51, 234, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
 
-            h1 {
-                font-size: 2rem;
-            }
-
-            .spheal-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .spheal {
-                width: 150px;
-                height: 150px;
-            }
-
-            .controls {
-                grid-template-columns: 1fr;
-            }
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <a href="index.html" class="back-btn">← Volver al Portfolio</a>
+
+    <div id="message" class="message">¡Demo iniciada! Interactúa con Spheal</div>
 
     <div class="demo-container">
         <h1>Demo Interactiva - Spheal</h1>
@@ -363,6 +365,15 @@
                 spheal.classList.add('idle');
             }
         }, 3000);
+
+        // Mensaje de demo iniciada
+        setTimeout(() => {
+            const message = document.getElementById('message');
+            message.classList.add('show');
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        }, 1000);
     </script>
 </body>
 </html></content>
