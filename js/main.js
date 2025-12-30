@@ -51,6 +51,27 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
+    // ANIMACIÓN DE BARRAS DE HABILIDADES
+    const skillsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBars = entry.target.querySelectorAll('.skill-progress');
+                skillBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        const width = bar.style.width || '0%';
+                        bar.style.width = width;
+                    }, index * 200); // Stagger animation
+                });
+                skillsObserver.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const skillsSection = document.querySelector('.skills');
+    if (skillsSection) {
+        skillsObserver.observe(skillsSection);
+    }
+
     // NAVEGACIÓN ACTIVA SEGÚN SCROLL
     window.addEventListener('scroll', () => {
         let current = '';
