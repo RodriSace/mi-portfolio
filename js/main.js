@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- LÓGICA DEL MENÚ MÓVIL ---
+    // MENÚ MÓVIL
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links a');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isActive = navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
         
-        // Bloquear scroll para efecto APP
+        // Bloquear scroll solo en móvil
         if (isActive) {
             body.style.overflow = 'hidden';
         } else {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Resetear al agrandar ventana (PC)
+    // Resetear al volver a PC
     window.addEventListener('resize', () => {
         if (window.innerWidth > 900 && navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- TEMA CLARO/OSCURO ---
+    // TEMA CLARO/OSCURO
     const themeBtn = document.getElementById('theme-toggle');
     const savedTheme = localStorage.getItem('theme');
     
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // --- SCROLL SUAVE ---
+    // SCROLL SUAVE
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- MODAL SIMPLE ---
+    // MODAL
     const modal = document.getElementById('project-modal');
     const modalBody = modal.querySelector('#modal-body');
     const modalTitle = modal.querySelector('#modal-title');
