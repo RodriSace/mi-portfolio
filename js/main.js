@@ -181,5 +181,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalClose) modalClose.addEventListener('click', closeModal);
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-    console.log('🚀 Portafolio cargado correctamente!');
+    console.log('🚀 Portafolio cargado correctamente! v2');
 });
