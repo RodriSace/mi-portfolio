@@ -1275,4 +1275,179 @@ footer {
         width: 150px;
         height: 150px;
     }
+    /* --- ESTILOS NUEVOS PARA CONTACTO Y TRAYECTORIA --- */
+
+/* Ajuste sutil para la introducción de contacto */
+.contacto-intro {
+    text-align: center;
+    max-width: 600px;
+    margin: -1.5rem auto 3rem auto;
+    color: var(--color-texto-secondary);
+    font-size: 1.1rem;
+}
+
+/* Contenedor principal de contacto (Grid 2 columnas) */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Columna Izquierda: Lista de detalles */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Ítems individuales de contacto (Cajas pequeñas) */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-acento);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Iconos cuadrados con gradiente */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-secondary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(147, 51, 234, 0.3);
+}
+
+.detail-text h4 {
+    color: var(--color-texto);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.detail-text a {
+    color: var(--color-texto-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.detail-text a:hover {
+    color: var(--color-acento);
+}
+
+/* Columna Derecha: Tarjeta del Formulario */
+.contact-form-card {
+    background: var(--color-background);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea decorativa superior */
+.contact-form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-acento), var(--color-acento-secondary));
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-texto);
+    margin-left: 0.2rem;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--color-background-secondary);
+    background: var(--color-background-secondary);
+    color: var(--color-texto);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-acento);
+    background: var(--color-fondo);
+    box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
+}
+
+/* Botón ancho completo */
+.full-width {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-form-card {
+        padding: 1.5rem;
+    }
+    
+    .contact-details {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .contact-item {
+        flex: 1;
+        min-width: 280px;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact-details {
+        flex-direction: column;
+    }
+}
 }
