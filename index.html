@@ -491,62 +491,25 @@
 
     <section id="contacto" class="contacto">
         <div class="container">
-            <h2 class="section-title">Hablemos</h2>
-            <p class="contacto-intro">¿Tienes un proyecto en mente o quieres colaborar? ¡Estoy disponible!</p>
-            
-            <div class="contact-wrapper">
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="detail-text">
-                            <h4>Envíame un correo</h4>
-                            <a href="mailto:rodrigo.de@alu.uclm.es">rodrigo.de@alu.uclm.es</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div class="detail-text">
-                            <h4>LinkedIn</h4>
-                            <a href="https://www.linkedin.com/in/rodrigo-de-la-hoz-l%C3%B3pez-53b9b8388/" target="_blank" rel="noopener">Conecta conmigo</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="detail-text">
-                            <h4>GitHub</h4>
-                            <a href="https://github.com/rodrisace" target="_blank" rel="noopener">Revisa mi código</a>
-                        </div>
-                    </div>
+            <h2 class="section-title">Contacto</h2>
+            <p>¿Quieres colaborar o conocer más sobre mi trabajo? ¡Conectemos!</p>
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <p><strong>Correo:</strong> <a href="mailto:rodrigo.de@alu.uclm.es">rodrigo.de@alu.uclm.es</a></p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/rodrisace" target="_blank" rel="noopener">rodrisace</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rodrigo-de-la-hoz-l%C3%B3pez-53b9b8388/" target="_blank" rel="noopener">Perfil</a></p>
                 </div>
+                <form id="contact-form" class="contact-form" aria-label="Formulario de contacto" method="POST">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" required>
 
-                <form id="contact-form" class="contact-form-card" aria-label="Formulario de contacto" method="POST">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
-                    </div>
+                    <label for="email">Correo</label>
+                    <input type="email" id="email" name="email" required>
 
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-                    </div>
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
 
-                    <div class="form-group">
-                        <label for="message">Mensaje</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-primary full-width">
-                        <span>Enviar Mensaje</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <button type="submit" class="btn-primary">Enviar mensaje</button>
                     <p id="form-status" role="status" aria-live="polite"></p>
                 </form>
             </div>
