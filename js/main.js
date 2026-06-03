@@ -116,28 +116,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // FORMULARIO DE CONTACTO
+    // FORMULARIO DE CONTACTO (MEJORADO CON FORMSUBMIT AJAX Y FALLBACK)
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
             const name = form.querySelector('#name').value.trim();
             const email = form.querySelector('#email').value.trim();
             const message = form.querySelector('#message').value.trim();
 
             if (!name || !email || !message) {
-                if (status) status.textContent = 'Por favor rellena todos los campos.';
+                if (status) {
+                    status.style.color = '#ef4444';
+                    status.textContent = 'Por favor rellena todos los campos.';
+                }
                 return;
             }
 
-            // Fallback: abrir cliente de correo mediante mailto
-            const subject = encodeURIComponent(`Contacto desde portafolio: ${name}`);
-            const body = encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`);
-            const mailto = `mailto:rodrigo.de@alu.uclm.es?subject=${subject}&body=${body}`;
-            window.location.href = mailto;
-            if (status) status.textContent = 'Abriendo cliente de correo...';
-            form.reset();
+            // Deshabilitar botón y mostrar estado de carga
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            if (status) {
+                status.style.color = 'var(--color-acento)';
+                status.textContent = 'Procesando mensaje...';
+            }
+
+            try {
+                const response = await fetch("https://formsubmit.co/ajax/rodrigohozlopez@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Nombre: name,
+                        Email: email,
+                        Mensaje: message
+                    })
+                });
+
+                if (response.ok) {
+                    if (status) {
+                        status.style.color = '#10b981';
+                        status.textContent = '¡Mensaje enviado con éxito! Te responderé pronto.';
+                    }
+                    form.reset();
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            } catch (error) {
+                console.error('Error enviando por AJAX, usando fallback mailto:', error);
+                // Fallback: abrir cliente de correo mediante mailto
+                const subject = encodeURIComponent(`Contacto desde portafolio: ${name}`);
+                const body = encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`);
+                const mailto = `mailto:rodrigohozlopez@gmail.com?subject=${subject}&body=${body}`;
+                window.location.href = mailto;
+                if (status) {
+                    status.style.color = 'var(--color-acento)';
+                    status.textContent = 'Abriendo cliente de correo nativo...';
+                }
+                form.reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
         });
     }
 
