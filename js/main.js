@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const animatedElements = document.querySelectorAll('.proyecto-card, .habilidad, .sobre-mi p, .info-card, .timeline-item');
+    const animatedElements = document.querySelectorAll('.proyecto-card, .skill-item, .sobre-mi p, .approach-card, .highlight-item, .timeline-item');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -163,11 +163,70 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalClose = modal ? modal.querySelector('.modal-close') : null;
 
     const projectData = {
+        gramola: {
+            title: 'La Gramola Virtual',
+            body: `<p>Una plataforma web que moderniza la experiencia musical en locales comerciales. Los clientes pueden escanear un código QR, buscar canciones usando la API de Spotify y añadirlas a una cola de reproducción en tiempo real mediante tokens adquiridos a través de Stripe.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Panel de administración para locales (control de reproducción y licencias).</li>
+                       <li>Pasarela de pago integrada con Stripe para compra de créditos/canciones.</li>
+                       <li>Integración completa con la API de Spotify para búsqueda y control de reproductor.</li>
+                       <li>Backend escalable desarrollado con arquitectura limpia en Spring Boot.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: Angular 19, Spring Boot 3, Hibernate, MySQL, Stripe API, Spotify API</p>
+                   <p><a href="https://github.com/RodriSace/gramolaRodrigo-project" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+        },
         pokemon: {
-            title: 'Proyecto Pokémon',
-            body: `<p>Aplicación que consume la PokéAPI para mostrar fichas de Pokémon, búsqueda y paginación. Construido con HTML, CSS y JavaScript puro.</p>
-                   <p class="muted">Tecnologías: HTML5, CSS3, JavaScript (Fetch API)</p>
-                   <p><a href="https://rodrisace.github.io/ProyectoPokemon/" target="_blank" rel="noopener">Demo</a> • <a href="https://github.com/rodrisace/ProyectoPokemon" target="_blank" rel="noopener">Repositorio</a></p>`
+            title: 'Explorador Pokémon (iPokemon)',
+            body: `<p>Aplicación de exploración e interacción con criaturas Pokémon desarrollada para simular un proyecto UWP completo en entorno web.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Integración con PokeAPI para obtener estadísticas e imágenes oficiales en tiempo real.</li>
+                       <li>Simulación interactiva de Spheal con barra de vida, energía, estados (dormido, cansado, debilitado).</li>
+                       <li>Animaciones CSS fluidas y dinámicas para simular ataques y efectos visuales.</li>
+                       <li>Filtros y motores de búsqueda avanzados.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: HTML5, CSS3, JavaScript puro (Vanilla JS), PokeAPI</p>
+                   <p><a href="pokemon-demo.html" target="_blank">Demo Local</a> • <a href="https://github.com/rodrisace/ProyectoPokemon" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+        },
+        spotify_vinyl: {
+            title: 'Spotify to Vinyl',
+            body: `<p>Plataforma innovadora que permite a los amantes de la música tangibilizar sus gustos digitales convirtiendo playlists de Spotify en diseños de discos de vinilo coleccionables personalizados.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Autenticación OAuth2 segura con Spotify.</li>
+                       <li>Análisis de metadatos de playlists para determinar colores predominantes y diseño artístico automático.</li>
+                       <li>Generación en tiempo real de renders en 3D del disco y la portada.</li>
+                       <li>Interfaz moderna enfocada en la personalización de usuario (UX/UI).</li>
+                   </ul>
+                   <p class="muted">Tecnologías: React.js, Node.js, Express, Spotify Web API, CSS Modules</p>
+                   <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+        },
+        isi_lab: {
+            title: 'ISI-LAB (Buscador Musical)',
+            body: `<p>Sistema de gestión y búsqueda de información musical desarrollado bajo principios de bases de datos relacionales y diseño de software orientado a objetos.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Base de datos optimizada en MySQL con relaciones complejas entre artistas, álbumes y pistas.</li>
+                       <li>Buscador dinámico con filtros avanzados (género, año, popularidad).</li>
+                       <li>Interfaz limpia e intuitiva integrada con backend de Java.</li>
+                       <li>Operaciones CRUD completas y seguras.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: Java SE, JDBC, MySQL, HTML5, CSS3</p>
+                   <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+        },
+        portfolio: {
+            title: 'Mi Portfolio Personal',
+            body: `<p>Sitio web personal y profesional diseñado para presentar mi trayectoria y proyectos de forma interactiva y optimizada.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Arquitectura frontend nativa ultra-rápida y responsiva.</li>
+                       <li>Estilo sofisticado con modo oscuro y modo claro persistente.</li>
+                       <li>Animaciones dinámicas basadas en scroll con Intersection Observer.</li>
+                       <li>SEO completo, marcado de datos estructurados y sitemap.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: HTML5, CSS3 (Variables, Grid, Flexbox), Vanilla JavaScript, SEO, JSON-LD</p>
+                   <p><a href="https://rodrisace.github.io/mi-portfolio/" target="_blank">Demo en Vivo</a> • <a href="https://github.com/RodriSace/mi-portfolio" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         }
     };
 
