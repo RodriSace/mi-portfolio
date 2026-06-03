@@ -214,19 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
                    </ul>
                    <p class="muted">Tecnologías: Java SE, JDBC, MySQL, HTML5, CSS3</p>
                    <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
-        },
-        portfolio: {
-            title: 'Mi Portfolio Personal',
-            body: `<p>Sitio web personal y profesional diseñado para presentar mi trayectoria y proyectos de forma interactiva y optimizada.</p>
-                   <p><strong>Características clave:</strong></p>
-                   <ul>
-                       <li>Arquitectura frontend nativa ultra-rápida y responsiva.</li>
-                       <li>Estilo sofisticado con modo oscuro y modo claro persistente.</li>
-                       <li>Animaciones dinámicas basadas en scroll con Intersection Observer.</li>
-                       <li>SEO completo, marcado de datos estructurados y sitemap.</li>
-                   </ul>
-                   <p class="muted">Tecnologías: HTML5, CSS3 (Variables, Grid, Flexbox), Vanilla JavaScript, SEO, JSON-LD</p>
-                   <p><a href="https://rodrisace.github.io/mi-portfolio/" target="_blank">Demo en Vivo</a> • <a href="https://github.com/RodriSace/mi-portfolio" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         }
     };
 
