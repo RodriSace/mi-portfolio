@@ -1,0 +1,92 @@
+========================================================================
+                      RESUMEN DEL REPOSITORIO
+========================================================================
+
+Este repositorio contiene el portafolio profesional y académico de:
+Rodrigo de la Hoz López - Ingeniero Informático & Database Developer.
+
+------------------------------------------------------------------------
+1. ESTRUCTURA DEL PROYECTO
+------------------------------------------------------------------------
+El proyecto está construido como un sitio web estático optimizado para 
+móviles y SEO, desplegado en Netlify. Los archivos principales son:
+
+* / (Raíz)
+  ├── index.html            - Página principal del portafolio.
+  ├── pokemon-demo.html     - Demo interactiva de simulación de Pokémon (Spheal).
+  ├── cv.pdf                - Currículum Vitae descargable en PDF.
+  ├── netlify.toml          - Configuración de despliegue para Netlify.
+  ├── robots.txt            - Archivo de configuración para motores de búsqueda.
+  ├── sitemap.xml           - Mapa del sitio para mejorar el SEO.
+  ├── site.webmanifest      - Manifiesto web para compatibilidad con PWA.
+  ├── .nojekyll             - Evita que GitHub Pages procese archivos con Jekyll.
+  └── antigravity.tar.gz    - Archivo comprimido con recursos o herramientas.
+
+* css/
+  └── styles.css            - Hojas de estilo personalizadas (soporte para 
+                              tema claro/oscuro, efectos glow, animaciones).
+
+* js/
+  └── main.js               - Lógica de interactividad (menú hamburguesa, 
+                              scroll suave, animaciones, control de modals 
+                              y gestión del formulario de contacto).
+
+* images/                   - Carpeta con las imágenes del portafolio:
+  ├── Foto_Orla.png         - Foto de perfil principal.
+  ├── isi_lab.png           - Captura de pantalla del proyecto ISI-LAB.
+  ├── musica.webp           - Captura para el proyecto La Gramola.
+  ├── pokemon-thumb.svg     - Imagen de vista previa para Open Graph.
+  ├── pokemon.png           - Icono/Miniatura de Pokémon.
+  ├── spheal.png            - Sprite de Spheal para el simulador de combate.
+  └── spotify_to_vinyl.png  - Captura del proyecto Spotify to Vinyl.
+
+------------------------------------------------------------------------
+2. DETALLES DE LAS PÁGINAS PRINCIPALES
+------------------------------------------------------------------------
+* index.html (Portafolio Principal):
+  - Inicio / Hero: Mensaje de bienvenida, estado de disponibilidad 
+    laboral, estadísticas breves y botones de llamada a la acción.
+  - Sobre Mí: Biografía de Rodrigo (21 años, estudiante de último año de 
+    Ingeniería Informática en la UCLM, experiencia en NTT DATA como 
+    Database Developer, intercambio Erasmus de 5 meses en Polonia).
+  - Habilidades: Divididas en Lenguajes/Backend (Java, Python, C++, Node.js), 
+    Frontend/Web (JS, React, HTML/CSS), BD/Sistemas (SQL Oracle/PostgreSQL/
+    SQL Server/MySQL, Git/GitHub, VS Code, VirtualBox) y Personales.
+  - Proyectos: Listado de proyectos clave con ventanas emergentes (modals) 
+    para ver más detalles de cada uno.
+  - Trayectoria: Timeline interactiva que muestra hitos académicos y 
+    profesionales relevantes (NTT DATA, UCLM, Erasmus, Hackathons).
+  - Enfoque: Estrategia de trabajo dividida en Planificación, Diseño/Desarrollo, 
+    y Pruebas/Lanzamiento.
+  - Contacto: Formulario interactivo que envía los mensajes vía AJAX 
+    a través de FormSubmit, con un fallback a un enlace 'mailto' en caso 
+    de fallo de red.
+
+* pokemon-demo.html (Explorador & Simulador Pokémon):
+  - Una demo interactiva inspirada en un proyecto UWP adaptado para web.
+  - Integra la PokeAPI para la obtención de datos dinámicos.
+  - Incluye un simulador de combate de Spheal con animaciones CSS fluidas, 
+    barras de vida, energía, estados alterados (dormido, cansado, debilitado), 
+    efectos de sonido y fondo dinámico personalizable.
+
+------------------------------------------------------------------------
+3. CARACTERÍSTICAS TÉCNICAS Y FUNCIONALIDADES CLAVE
+------------------------------------------------------------------------
+* Responsive Design & UX: Diseño adaptado a todo tipo de pantallas mediante 
+  un sistema de grid moderno y flexbox en CSS nativo (sin frameworks como 
+  Tailwind o Bootstrap).
+* Light / Dark Theme: Alternancia de tema claro y oscuro controlada mediante 
+  JavaScript, guardando la preferencia del usuario en 'localStorage'.
+* Animaciones Fluidas: Transiciones y efectos en scroll implementados con 
+  'Intersection Observer API' para revelar elementos visuales de forma suave.
+* SEO & Metadatos: Configuración optimizada con etiquetas Open Graph, 
+  JSON-LD estructurado de Schema.org para marcas personales, mapa de sitio 
+  y reglas de indexación limpias.
+* Proyectos Destacados en el Portafolio:
+  1. La Gramola Virtual: Angular 19, Spring Boot 3, MySQL, Stripe API y 
+     Spotify API. Permite reproducir música en locales mediante colas interactivas.
+  2. Explorador Pokémon (iPokemon): HTML5, CSS3, JS Vanilla y PokeAPI.
+  3. Spotify to Vinyl: React.js, Node.js, Express y Spotify Web API. 
+     Genera renders 3D de discos de vinilo basados en playlists.
+  4. ISI-LAB (Buscador Musical): Java SE, JDBC, MySQL, HTML/CSS. Base de 
+     datos y buscador de música.
