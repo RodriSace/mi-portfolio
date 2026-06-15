@@ -262,19 +262,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    function openModal(key) {
+    let lastActiveElement = null;
+
+    function openModal(key, triggerBtn) {
         if (!modal || !modalBody || !modalTitle) return;
         const data = projectData[key];
         if (!data) return;
+        
+        lastActiveElement = triggerBtn || document.activeElement;
         modalTitle.textContent = data.title;
         modalBody.innerHTML = data.body;
         modal.setAttribute('aria-hidden', 'false');
+        
+        // Enfocar el botón de cerrar al abrir para accesibilidad
+        if (modalClose) {
+            setTimeout(() => modalClose.focus(), 50);
+        }
     }
-    function closeModal() { if (modal) modal.setAttribute('aria-hidden', 'true'); }
 
-    document.querySelectorAll('.btn-detail').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); const key = btn.dataset.open; openModal(key); }));
+    function closeModal() {
+        if (!modal) return;
+        modal.setAttribute('aria-hidden', 'true');
+        if (lastActiveElement) {
+            lastActiveElement.focus();
+        }
+    }
+
+    document.querySelectorAll('.btn-detail').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const key = btn.dataset.open;
+            openModal(key, btn);
+        });
+    });
+
     if (modalClose) modalClose.addEventListener('click', closeModal);
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    
+    // Cerrar al pulsar Escape
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // Cerrar al hacer clic en el backdrop (fuera del contenido)
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Trampa de foco (Focus Trap) para navegación por teclado
+        modal.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+            
+            const focusableEls = modal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
+            if (focusableEls.length === 0) return;
+            
+            const firstFocusable = focusableEls[0];
+            const lastFocusable = focusableEls[focusableEls.length - 1];
+            
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstFocusable) {
+                    lastFocusable.focus();
+                    e.preventDefault();
+                }
+            } else { // Tab
+                if (document.activeElement === lastFocusable) {
+                    firstFocusable.focus();
+                    e.preventDefault();
+                }
+            }
+        });
+    }
 
     console.log('🚀 Portafolio cargado correctamente! v2');
 });
