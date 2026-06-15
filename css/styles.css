@@ -581,11 +581,13 @@ section {
 }
 
 .profile-section .stat-label {
+    display: block;
     font-size: 0.7rem;
     color: var(--color-texto-secondary);
     text-transform: uppercase;
     text-align: center;
     margin-top: 0.25rem;
+    white-space: normal;
     word-break: break-word;
 }
 
