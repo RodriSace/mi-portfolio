@@ -1054,43 +1054,81 @@ section {
 .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
-.contact-info p {
+.contact-card {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
     background: var(--color-background);
     border: 1px solid var(--color-border);
-    padding: 1.25rem;
+    padding: 1.25rem 1.5rem;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow);
-    font-size: 0.95rem;
+    transition: all var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.contact-info strong {
+.contact-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(139, 92, 246, 0.2);
+    box-shadow: var(--shadow-hover);
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    color: var(--color-acento);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    transition: all var(--transition-normal);
+}
+
+.contact-card:hover .contact-icon {
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-secondary));
+    color: white;
+    border-color: transparent;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.contact-details strong {
     font-family: var(--font-heading);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--color-acento);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
 }
 
-.contact-info a {
+.contact-details a {
     color: var(--color-texto);
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.95rem;
+    word-break: break-all;
     transition: color var(--transition-fast);
 }
 
-.contact-info a:hover {
-    color: var(--color-acento);
+.contact-details a:hover {
+    color: var(--color-acento-secondary);
 }
 
 .contact-form {
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
+    background: var(--color-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-glass-border);
     padding: 2.5rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);

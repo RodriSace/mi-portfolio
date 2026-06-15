@@ -18,7 +18,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=2.2">
+    <link rel="stylesheet" href="css/styles.css?v=2.3">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo, HTML, CSS, JavaScript">
@@ -573,12 +573,33 @@
             <p>¿Quieres colaborar o conocer más sobre mi trabajo? ¡Conectemos!</p>
             <div class="contact-layout">
                 <div class="contact-info">
-                    <p><strong>Correo:</strong> <a href="mailto:rodrigohozlopez@gmail.com">rodrigohozlopez@gmail.com</a></p>
-                    <p><strong>GitHub:</strong> <a href="https://github.com/rodrisace" target="_blank"
-                            rel="noopener">rodrisace</a></p>
-                    <p><strong>LinkedIn:</strong> <a
-                            href="https://www.linkedin.com/in/rodrigo-delahoz-db/" target="_blank"
-                            rel="noopener">Perfil</a></p>
+                    <div class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <strong>Correo Electrónico</strong>
+                            <a href="mailto:rodrigohozlopez@gmail.com">rodrigohozlopez@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <strong>GitHub</strong>
+                            <a href="https://github.com/rodrisace" target="_blank" rel="noopener">github.com/rodrisace</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <strong>LinkedIn</strong>
+                            <a href="https://www.linkedin.com/in/rodrigo-delahoz-db/" target="_blank" rel="noopener">rodrigo-delahoz-db</a>
+                        </div>
+                    </div>
                 </div>
                 <form id="contact-form" class="contact-form" aria-label="Formulario de contacto" method="POST">
                     <label for="name">Nombre</label>
