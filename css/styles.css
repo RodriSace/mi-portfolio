@@ -99,6 +99,7 @@ body {
 section {
     padding: 6rem 0;
     position: relative;
+    scroll-margin-top: 100px;
 }
 
 .section-title {
@@ -550,9 +551,14 @@ section {
     color: var(--color-texto-secondary);
 }
 
+.profile-info {
+    width: 100%;
+}
+
 .profile-section .profile-stats {
     display: flex;
     justify-content: space-around;
+    gap: 16px;
     width: 100%;
     margin-top: 2rem;
     padding-top: 1.5rem;
@@ -562,6 +568,9 @@ section {
 .profile-section .stat {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .profile-section .stat-number {
@@ -575,6 +584,9 @@ section {
     font-size: 0.7rem;
     color: var(--color-texto-secondary);
     text-transform: uppercase;
+    text-align: center;
+    margin-top: 0.25rem;
+    word-break: break-word;
 }
 
 .about-details {
@@ -1303,7 +1315,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     section {
         padding: 4rem 0;
     }
