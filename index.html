@@ -117,60 +117,9 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="hero-avatar-wrapper">
-                        <div class="hero-avatar">
-                            <img src="images/Foto_Orla.webp" alt="Rodrigo de la Hoz López" class="profile-photo">
-                        </div>
-                    </div>
-                    <div class="pipeline-container" id="pipeline-visualizer">
-                        <div class="pipeline-nodes-wrapper">
-                            <!-- Connecting SVG lines with animated dashes representing data packets -->
-                            <svg class="pipeline-connections" viewBox="0 0 300 240" preserveAspectRatio="none">
-                                <defs>
-                                    <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="var(--color-acento)" />
-                                        <stop offset="100%" stop-color="var(--color-acento-secondary)" />
-                                    </linearGradient>
-                                </defs>
-                                
-                                <!-- Path 1: Frontend to Backend -->
-                                <path class="flow-path" d="M 67 47 C 150 47, 150 120, 233 120" />
-                                <path id="flow-pulse-1" class="flow-pulse" d="M 67 47 C 150 47, 150 120, 233 120" />
-                                
-                                <!-- Path 2: Backend to Database -->
-                                <path class="flow-path" d="M 233 120 C 150 120, 150 193, 67 193" />
-                                <path id="flow-pulse-2" class="flow-pulse" d="M 233 120 C 150 120, 150 193, 67 193" />
-                            </svg>
-
-                            <!-- Frontend Node -->
-                            <div class="pipeline-node node-frontend active" data-node="frontend" role="button" aria-label="Visualizar Frontend Stack">
-                                <div class="node-icon"><i class="fas fa-laptop-code"></i></div>
-                                <span class="node-label">Frontend</span>
-                            </div>
-                            
-                            <!-- Backend Node -->
-                            <div class="pipeline-node node-backend" data-node="backend" role="button" aria-label="Visualizar Backend Stack">
-                                <div class="node-icon"><i class="fas fa-server"></i></div>
-                                <span class="node-label">Backend</span>
-                            </div>
-                            
-                            <!-- Database Node -->
-                            <div class="pipeline-node node-database" data-node="database" role="button" aria-label="Visualizar Database Stack">
-                                <div class="node-icon"><i class="fas fa-database"></i></div>
-                                <span class="node-label">Bases de Datos</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Panel central de detalles del Stack Activo -->
-                        <div class="pipeline-details">
-                            <h4 id="detail-title">Frontend Stack</h4>
-                            <div class="tech-tags" id="detail-tags">
-                                <span class="tag">React.js</span>
-                                <span class="tag">Angular</span>
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">HTML5/CSS3</span>
-                            </div>
-                            <p id="detail-desc">Creación de interfaces de usuario responsivas, accesibles y fluidas. Enfoque en interactividad premium, optimización DOM y renderizado eficiente.</p>
+                    <div class="hero-image">
+                        <div class="profile-avatar">
+                            <img src="images/Foto_Orla.webp" alt="Rodrigo de la Hoz" class="profile-photo">
                         </div>
                     </div>
                 </div>

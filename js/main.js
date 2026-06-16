@@ -333,75 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // PIPELINE VISUALIZER INTERACTIVITY
-    const nodes = document.querySelectorAll('.pipeline-node');
-    const detailTitle = document.getElementById('detail-title');
-    const detailTags = document.getElementById('detail-tags');
-    const detailDesc = document.getElementById('detail-desc');
-    const pulse1 = document.getElementById('flow-pulse-1');
-    const pulse2 = document.getElementById('flow-pulse-2');
 
-    const nodeData = {
-        frontend: {
-            title: 'Frontend Stack',
-            tags: ['React.js', 'Angular', 'HTML5', 'CSS3', 'JavaScript'],
-            desc: 'Creación de interfaces de usuario responsivas, accesibles y fluidas. Enfoque en interactividad premium, optimización DOM y renderizado eficiente.',
-            pulseSpeed: '2s'
-        },
-        backend: {
-            title: 'Backend Stack',
-            tags: ['Node.js', 'Spring Boot', 'Java', 'Python', 'C++'],
-            desc: 'Desarrollo de servicios robustos, lógica de negocio escalable y APIs RESTful seguras. Integración fluida de sistemas utilizando patrones de diseño.',
-            pulseSpeed: '1.2s'
-        },
-        database: {
-            title: 'Bases de Datos',
-            tags: ['Oracle Database', 'PostgreSQL', 'SQL Server', 'MySQL'],
-            desc: 'Diseño, optimización y gestión de bases de datos relacionales corporativas. Garantía de integridad de datos y consultas de alto rendimiento sin cuellos de botella.',
-            pulseSpeed: '0.8s'
-        }
-    };
-
-    if (nodes.length > 0 && detailTitle && detailTags && detailDesc) {
-        nodes.forEach(node => {
-            const triggerUpdate = () => {
-                // Remove active class from all nodes
-                nodes.forEach(n => n.classList.remove('active'));
-                // Add active class to current node
-                node.classList.add('active');
-
-                const key = node.getAttribute('data-node');
-                const data = nodeData[key];
-
-                if (data) {
-                    detailTitle.textContent = data.title;
-                    detailDesc.textContent = data.desc;
-                    
-                    // Render tags
-                    detailTags.innerHTML = '';
-                    data.tags.forEach(tag => {
-                        const span = document.createElement('span');
-                        span.className = 'tag';
-                        span.textContent = tag;
-                        detailTags.appendChild(span);
-                    });
-
-                    // Speed up pulses based on selected layer
-                    if (pulse1) pulse1.style.animationDuration = data.pulseSpeed;
-                    if (pulse2) pulse2.style.animationDuration = data.pulseSpeed;
-                }
-            };
-
-            node.addEventListener('mouseenter', triggerUpdate);
-            node.addEventListener('click', triggerUpdate);
-            node.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    triggerUpdate();
-                }
-            });
-        });
-    }
 
     console.log('🚀 Portafolio cargado correctamente! v2.5');
 });
