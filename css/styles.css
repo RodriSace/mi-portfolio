@@ -433,9 +433,31 @@ section {
 /* HERO IMAGE */
 .hero-visual {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     position: relative;
     align-items: center;
+    gap: 1.5rem;
+}
+
+.hero-avatar-wrapper {
+    margin-bottom: 0.5rem;
+    z-index: 10;
+}
+
+.hero-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--color-acento);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+    overflow: hidden;
+    transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+}
+
+.hero-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
 }
 
 /* PIPELINE VISUALIZER */
