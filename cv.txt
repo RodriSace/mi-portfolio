@@ -1,0 +1,63 @@
+                                              Rodrigo de la Hoz López
+                                              INGENIERO INFORMÁTICO & SOFTWARE DEVELOPER
+
+
+                                              PERFIL PROFESIONAL
+                                              Como Ingeniero Informático especializado en Tecnologías de la Información y con perfil
+                                              Full-Stack, me enfoco en la creación de soluciones integrales de software. Cuento con
+                                              experiencia en el diseño de interfaces de usuario interactivas con React y Angular, la
+                                              implementación de servicios backend con Node.js y Spring Boot, y una sólida trayectoria en
+                                              el diseño, administración y optimización de bases de datos como Oracle, PostgreSQL y SQL
+                                              Server durante mi paso por NTT DATA, destacando por mi capacidad de aprendizaje y de
+                                              trabajo en equipo.
+
+CONTACTO
+                                              EXPERIENCIA PROFESIONAL
+Teléfono:
+643 079 002
+                                              Software Developer | NTT DATA
+Email:                                        2026 - Presente | Ciudad Real, España
+rodrigohozlopez@gmail.com
+                                              • Desarrollo frontend y backend para sistemas web corporativos utilizando metodologías
+GitHub:                                          ágiles.
+github.com/RodriSace
+                                              • Integración de servicios backend y APIs RESTful con bases de datos relacionales.
+Dirección:
+                                              • Diseño, optimización de consultas y administración de bases de datos empresariales.
+Calle Gran Bretaña 2,
+13005 Ciudad Real
+
+                                              EDUCACIÓN Y FORMACIÓN
+INFORMACIÓN
+                                              Grado en Ingeniería Informática - Mención en Tecnologías de la Información
+• Permiso de conducir clase B                 Universidad de Castilla-La Mancha | 2022 - Presente - Último Año
+• Vehículo propio disponible
+                                              Estancia de Intercambio Erasmus de 5 meses
+• Disponibilidad para viajar                  Universidad de Kielce, Polonia | 2024
+                                              • Desarrollo de proyectos técnicos y académicos de software en entornos multiculturales.
+IDIOMAS                                       • Fortalecimiento de habilidades interculturales, adaptabilidad y comunicación técnica en
+• Español: Nativo                                inglés.
+
+• Inglés: B1 - Intermedio - Estancia
+   Erasmus                                    PROYECTOS DESTACADOS
+
+HABILIDADES                                   La Gramola Virtual | Angular 19, Spring Boot 3, MySQL, Stripe API, Spotify API
+                                              • Plataforma web interactiva para la reproducción de música en locales públicos con colas
+Frontend:                                        dinámicas.
+React.js, Angular, HTML5, CSS3,
+JavaScript                                    Spotify to Vinyl | React.js, Node.js, Express, Spotify Web API
+                                              • Aplicación web orientada a la visualización de datos y renderizado 3D de discos de vinilo.
+Backend:
+Node.js, Spring Boot, Java, Python, C++       iPokemon2025 | HTML5, CSS3, JavaScript Vanilla, PokeAPI
+                                              • Videojuego web simulador de combates centrado en la usabilidad y el diseño responsivo de
+Bases de Datos:                                  interfaces.
+Oracle Database, PostgreSQL, SQL Server,
+MySQL
+
+Herramientas:
+Git, GitHub, Docker, VS Code, Linux
+
+Personales:
+Adaptabilidad, aprendizaje ágil, trabajo en
+equipo, versatilidad
+

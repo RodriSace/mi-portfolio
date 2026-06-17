@@ -221,6 +221,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.5 });
     document.querySelectorAll('.stat-number').forEach(el => countersObserver.observe(el));
 
+    // FALLBACK ICONOS TECNOLOGÍAS (si el CDN falla, oculta el icono roto)
+    document.querySelectorAll('.tech-icon img').forEach(img => {
+        img.addEventListener('error', () => {
+            const parent = img.closest('.tech-icon');
+            if (parent) parent.style.display = 'none';
+        });
+    });
+
+    // FILTROS DE PROYECTOS
+    const filtroBtns = document.querySelectorAll('.filtro-btn');
+    const proyectoCards = document.querySelectorAll('.proyecto-card');
+    filtroBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filtroBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            proyectoCards.forEach(card => {
+                const cats = (card.dataset.cat || '').split(' ');
+                const show = filter === 'all' || cats.includes(filter);
+                card.classList.toggle('oculto', !show);
+            });
+        });
+    });
+
     // THEME TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
     let currentTheme = localStorage.getItem('theme');

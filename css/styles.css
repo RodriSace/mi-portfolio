@@ -662,6 +662,56 @@ section {
     padding: 6rem 0;
 }
 
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 1.25rem;
+    margin: 0 auto 3.5rem;
+    max-width: 900px;
+}
+
+.tech-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-icon img {
+    width: 48px;
+    height: 48px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all var(--transition-normal);
+}
+
+.tech-icon span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-texto-secondary);
+    transition: color var(--transition-normal);
+}
+
+.tech-icon:hover {
+    transform: translateY(-5px);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: var(--shadow-hover);
+}
+
+.tech-icon:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tech-icon:hover span {
+    color: var(--color-texto);
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -738,6 +788,44 @@ section {
     background: var(--color-fondo-secondary);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
+}
+
+.proyecto-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.filtro-btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-texto-secondary);
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all var(--transition-fast) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filtro-btn:hover {
+    color: var(--color-texto);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.filtro-btn.active {
+    color: white;
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-secondary));
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.proyecto-card.oculto {
+    display: none;
 }
 
 .proyectos-grid {
