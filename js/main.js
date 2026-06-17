@@ -91,30 +91,41 @@ document.addEventListener('DOMContentLoaded', () => {
         skillsObserver.observe(skillsSection);
     }
 
-    // NAVEGACIÓN ACTIVA SEGÚN SCROLL
-    window.addEventListener('scroll', () => {
+    // NAVEGACIÓN ACTIVA + PARALLAX (optimizado con requestAnimationFrame)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const heroEl = document.querySelector('.hero');
+    const sections = document.querySelectorAll('section');
+    let ticking = false;
+
+    function onScroll() {
+        const scrolled = window.scrollY;
+
+        // Navegación activa según scroll
         let current = '';
-        const sections = document.querySelectorAll('section');
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (scrollY >= (sectionTop - 200)) current = section.getAttribute('id');
+            if (scrolled >= (sectionTop - 200)) current = section.getAttribute('id');
         });
-
         links.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
         });
-    });
 
-    // Efecto parallax sutil en el hero
-    window.addEventListener('scroll', () => {
-        const hero = document.querySelector('.hero');
-        const scrolled = window.scrollY;
-        if (hero && scrolled < window.innerHeight) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / window.innerHeight);
+        // Parallax sutil en el hero (respeta prefers-reduced-motion)
+        if (heroEl && scrolled < window.innerHeight && !prefersReducedMotion) {
+            heroEl.style.transform = `translateY(${scrolled * 0.5}px)`;
+            heroEl.style.opacity = 1 - (scrolled / window.innerHeight);
         }
-    });
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(onScroll);
+            ticking = true;
+        }
+    }, { passive: true });
 
     // FORMULARIO DE CONTACTO (MEJORADO CON FORMSUBMIT AJAX Y FALLBACK)
     const form = document.getElementById('contact-form');
@@ -185,6 +196,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // CONTADOR ANIMADO EN ESTADÍSTICAS
+    const countersObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const raw = el.textContent.trim();
+            const match = raw.match(/(\d+)(\D*)$/);
+            if (!match) { countersObserver.unobserve(el); return; }
+            const target = parseInt(match[1], 10);
+            const suffix = match[2] || '';
+            if (prefersReducedMotion) { countersObserver.unobserve(el); return; }
+            let cur = 0;
+            const step = Math.max(1, Math.ceil(target / 30));
+            const tick = () => {
+                cur = Math.min(cur + step, target);
+                el.textContent = cur + suffix;
+                if (cur < target) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            countersObserver.unobserve(el);
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-number').forEach(el => countersObserver.observe(el));
 
     // THEME TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
