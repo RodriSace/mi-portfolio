@@ -95,10 +95,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const heroEl = document.querySelector('.hero');
     const sections = document.querySelectorAll('section');
+    const progressBar = document.querySelector('.scroll-progress');
+    const backToTop = document.getElementById('back-to-top');
     let ticking = false;
 
     function onScroll() {
         const scrolled = window.scrollY;
+
+        // Barra de progreso de scroll
+        if (progressBar) {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        }
+
+        // Botón volver arriba
+        if (backToTop) {
+            backToTop.classList.toggle('visible', scrolled > 500);
+        }
 
         // Navegación activa según scroll
         let current = '';
@@ -220,6 +234,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.5 });
     document.querySelectorAll('.stat-number').forEach(el => countersObserver.observe(el));
+
+    // DROPDOWN CV (ES/EN)
+    const cvDropdown = document.querySelector('.cv-dropdown');
+    const cvBtn = cvDropdown ? cvDropdown.querySelector('.btn-cv') : null;
+    if (cvDropdown && cvBtn) {
+        cvBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = cvDropdown.classList.toggle('open');
+            cvBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('click', (e) => {
+            if (!cvDropdown.contains(e.target)) {
+                cvDropdown.classList.remove('open');
+                cvBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // BOTÓN VOLVER ARRIBA (click)
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        });
+    }
 
     // FALLBACK ICONOS TECNOLOGÍAS (si el CDN falla, oculta el icono roto)
     document.querySelectorAll('.tech-icon img').forEach(img => {

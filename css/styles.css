@@ -79,6 +79,52 @@ body {
     padding: 0 2rem;
 }
 
+/* SCROLL PROGRESS & BACK TO TOP */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-acento), var(--color-acento-secondary));
+    z-index: 2000;
+    transition: width 0.1s linear;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-secondary));
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1500;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+}
+
 /* GLOW BG AMBIENT LIGHTS */
 .glow-bg {
     position: absolute;
@@ -222,6 +268,57 @@ section {
 .btn-cv:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.cv-dropdown {
+    position: relative;
+}
+
+.cv-dropdown .btn-cv {
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+.cv-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--color-background);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hover);
+    padding: 6px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all var(--transition-fast) cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1100;
+}
+
+.cv-dropdown.open .cv-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.cv-menu a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.cv-menu a:hover {
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--color-acento);
 }
 
 .btn-theme {
