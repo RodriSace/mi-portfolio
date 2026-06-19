@@ -1603,3 +1603,186 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* ============================================================
+   EXTRAS v2.6 — Terminal interactiva, typewriter y easter eggs
+   ============================================================ */
+
+/* --- Cursor de máquina de escribir en el hero --- */
+.typewriter-text {
+    border-right: 2px solid var(--color-acento);
+    padding-right: 4px;
+    animation: caret-blink 0.9s step-end infinite;
+}
+@keyframes caret-blink {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--color-acento); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .typewriter-text { animation: none; border-right: none; padding-right: 0; }
+}
+
+/* --- Botón flotante para abrir la terminal --- */
+.terminal-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 1500;
+    width: 54px;
+    height: 54px;
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-md);
+    background: var(--color-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--color-acento);
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease, border-color var(--transition-fast) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.terminal-toggle:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-acento);
+}
+.terminal-toggle:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 3px;
+}
+
+/* --- Overlay + ventana de la terminal --- */
+.terminal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal) ease;
+}
+.terminal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.terminal-window {
+    width: min(720px, 100%);
+    max-height: min(70vh, 560px);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-background);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    transform: translateY(16px) scale(0.98);
+    transition: transform var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.terminal-overlay.open .terminal-window {
+    transform: translateY(0) scale(1);
+}
+
+.terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: var(--color-background-secondary);
+    border-bottom: 1px solid var(--color-border);
+}
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+.terminal-title {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--color-texto-secondary);
+    letter-spacing: 0.02em;
+}
+
+.terminal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.1rem;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--color-texto);
+    background:
+        radial-gradient(120% 100% at 0% 0%, rgba(139, 92, 246, 0.06), transparent 60%),
+        var(--color-background);
+}
+.terminal-body::-webkit-scrollbar { width: 8px; }
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 8px;
+}
+
+.terminal-line { white-space: pre-wrap; word-break: break-word; }
+.terminal-line a { color: var(--color-acento-secondary); text-decoration: underline; }
+.t-accent { color: var(--color-acento); }
+.t-accent2 { color: var(--color-acento-secondary); }
+.t-muted { color: var(--color-texto-secondary); }
+.t-ok { color: #28c840; }
+.t-err { color: #ff5f57; }
+.t-cmd { color: var(--color-texto); font-weight: 600; }
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem 0.9rem;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86rem;
+    background: var(--color-background);
+    border-top: 1px solid var(--color-border);
+}
+.terminal-prompt { color: var(--color-acento); white-space: nowrap; }
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-texto);
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: var(--color-acento);
+}
+
+/* --- Easter egg: lluvia de Spheal (Konami code) --- */
+.spheal-drop {
+    position: fixed;
+    top: -60px;
+    z-index: 4000;
+    width: 48px;
+    height: 48px;
+    pointer-events: none;
+    will-change: transform;
+    animation: spheal-fall linear forwards;
+}
+@keyframes spheal-fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .terminal-toggle { width: 46px; height: 46px; bottom: 1rem; left: 1rem; }
+    .terminal-body { font-size: 0.8rem; }
+}

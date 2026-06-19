@@ -24,10 +24,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=2.3">
+    <link rel="stylesheet" href="css/styles.css?v=2.6">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo, HTML, CSS, JavaScript">
@@ -104,7 +104,7 @@
                     </div>
                     <h1 class="text-generate">
                         Hola, soy <span class="nombre">Rodrigo</span><br>
-                        <span class="title-highlight">Ingeniero Informático</span>
+                        <span class="title-highlight" data-typewriter>Ingeniero Informático</span>
                     </h1>
                     <p class="subtitle">
                         Estudiante de último curso de Ingeniería Informática y Desarrollador de Software con enfoque Full-Stack. Especializado en la creación de soluciones de software robustas, el diseño de interfaces frontend interactivas y la gestión eficiente de bases de datos.
@@ -699,11 +699,30 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <button id="terminal-toggle" class="terminal-toggle" aria-label="Abrir terminal interactiva" title="Abrir terminal (tecla `)">&gt;_</button>
+
+    <div id="terminal-overlay" class="terminal-overlay" role="dialog" aria-modal="true" aria-label="Terminal interactiva" aria-hidden="true">
+        <div class="terminal-window">
+            <div class="terminal-bar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">rodrigo@portfolio: ~</span>
+            </div>
+            <div id="terminal-body" class="terminal-body" aria-live="polite"></div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt">rodrigo@portfolio:~$</span>
+                <input id="terminal-input" class="terminal-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Escribe un comando">
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Rodrigo de la Hoz López. Todos los derechos reservados.</p>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/extras.js"></script>
 </body>
 
 </html>
