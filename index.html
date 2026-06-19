@@ -27,7 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=2.6">
+    <link rel="stylesheet" href="css/styles.css?v=2.7">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo, HTML, CSS, JavaScript">
@@ -563,6 +563,19 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <section id="pokedex" class="pokedex">
+        <div class="container">
+            <h2 class="section-title">Pokédex en vivo</h2>
+            <p class="pokedex-intro">Demo conectada a la <a href="https://pokeapi.co" target="_blank" rel="noopener">PokeAPI</a> — la misma que uso en mi proyecto iPokemon. Busca cualquier Pokémon y obtén sus datos en tiempo real.</p>
+            <div class="pokedex-search">
+                <input type="text" id="pokedex-input" placeholder="Ej: spheal, pikachu, mewtwo…" aria-label="Nombre o número de Pokémon" autocomplete="off" spellcheck="false">
+                <button id="pokedex-btn" class="btn-primary" type="button"><i class="fas fa-search"></i> Buscar</button>
+                <button id="pokedex-random" class="btn-outline" type="button"><i class="fas fa-dice"></i> Aleatorio</button>
+            </div>
+            <div id="pokedex-card" class="pokedex-card" aria-live="polite"></div>
         </div>
     </section>
 
