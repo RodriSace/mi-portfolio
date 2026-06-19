@@ -1921,3 +1921,139 @@ footer {
     z-index: 5000;
     cursor: pointer;
 }
+
+/* ============================================================
+   COMMAND PALETTE (⌘K / Ctrl+K) — v2.8
+   ============================================================ */
+/* Botón disparador en la barra de navegación */
+.btn-cmdk {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-texto-secondary);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color var(--transition-fast) ease, color var(--transition-fast) ease;
+}
+.btn-cmdk:hover { border-color: var(--color-acento); color: var(--color-texto); }
+.btn-cmdk:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 2px; }
+.cmdk-kbd {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background: var(--color-background-secondary);
+}
+
+.cmdk-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3500;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 14vh 1rem 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal) ease;
+}
+.cmdk-overlay.open { opacity: 1; pointer-events: auto; }
+
+.cmdk-panel {
+    width: min(560px, 100%);
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-background);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transform: translateY(-12px) scale(0.98);
+    transition: transform var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cmdk-overlay.open .cmdk-panel { transform: translateY(0) scale(1); }
+
+.cmdk-search {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.cmdk-search > i { color: var(--color-texto-secondary); }
+.cmdk-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--color-texto);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+}
+.cmdk-esc {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    color: var(--color-texto-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 0.1rem 0.4rem;
+}
+
+.cmdk-list { list-style: none; overflow-y: auto; padding: 0.5rem; margin: 0; }
+.cmdk-list::-webkit-scrollbar { width: 8px; }
+.cmdk-list::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 8px; }
+
+.cmdk-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.8rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--color-texto);
+}
+.cmdk-item .cmdk-ico {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border-radius: var(--radius-sm);
+    background: var(--color-background-secondary);
+    color: var(--color-acento);
+    flex: 0 0 auto;
+}
+.cmdk-item .cmdk-label { flex: 1; font-size: 0.95rem; }
+.cmdk-item .cmdk-cat { font-size: 0.72rem; color: var(--color-texto-secondary); }
+.cmdk-item.active { background: linear-gradient(90deg, rgba(139, 92, 246, 0.16), rgba(59, 130, 246, 0.08)); }
+.cmdk-item.active .cmdk-cat { color: var(--color-acento); }
+.cmdk-empty { padding: 1.5rem; text-align: center; color: var(--color-texto-secondary); }
+
+.cmdk-footer {
+    display: flex;
+    gap: 1.2rem;
+    padding: 0.6rem 1.1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.72rem;
+    color: var(--color-texto-secondary);
+}
+.cmdk-footer kbd {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0 0.3rem;
+    margin-right: 0.15rem;
+}
+
+@media (max-width: 768px) {
+    .btn-cmdk .cmdk-kbd { display: none; }
+    .cmdk-overlay { padding-top: 8vh; }
+    .cmdk-footer { display: none; }
+}

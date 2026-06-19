@@ -454,8 +454,141 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* ---------- 5. MENSAJE OCULTO PARA QUIEN ABRE LA CONSOLA ---------- */
+    /* ---------- 7. COMMAND PALETTE (⌘K / Ctrl+K) ---------- */
+    const cmdkOverlay = document.getElementById('cmdk-overlay');
+    const cmdkInput = document.getElementById('cmdk-input');
+    const cmdkList = document.getElementById('cmdk-list');
+    const cmdkTrigger = document.getElementById('cmdk-trigger');
+
+    if (cmdkOverlay && cmdkInput && cmdkList) {
+        let cmdkPrevFocus = null;
+        let activeIndex = 0;
+        let visible = [];
+
+        const goto = (id) => () => {
+            closeCmdk();
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        };
+        const openProject = (key) => () => {
+            closeCmdk();
+            const btn = document.querySelector('.btn-detail[data-open="' + key + '"]');
+            if (btn) btn.click();
+        };
+
+        const actions = [
+            { icon: 'fa-house', label: 'Ir a Inicio', cat: 'Sección', keys: 'inicio home', run: goto('inicio') },
+            { icon: 'fa-user', label: 'Sobre mí', cat: 'Sección', keys: 'sobre mi about bio', run: goto('sobre-mi') },
+            { icon: 'fa-code', label: 'Habilidades', cat: 'Sección', keys: 'skills habilidades tecnologias stack', run: goto('skills') },
+            { icon: 'fa-folder-open', label: 'Proyectos', cat: 'Sección', keys: 'proyectos projects trabajos', run: goto('proyectos') },
+            { icon: 'fa-dragon', label: 'Pokédex en vivo', cat: 'Sección', keys: 'pokedex pokemon pokeapi', run: goto('pokedex') },
+            { icon: 'fa-timeline', label: 'Mi Trayectoria', cat: 'Sección', keys: 'experiencia trayectoria timeline trabajo', run: goto('experiencia') },
+            { icon: 'fa-lightbulb', label: 'Mi Enfoque', cat: 'Sección', keys: 'enfoque approach proceso', run: goto('approach') },
+            { icon: 'fa-envelope', label: 'Contacto', cat: 'Sección', keys: 'contacto contact formulario', run: goto('contacto') },
+            { icon: 'fa-folder', label: 'Proyecto: La Gramola Virtual', cat: 'Proyecto', keys: 'gramola spotify stripe angular', run: openProject('gramola') },
+            { icon: 'fa-folder', label: 'Proyecto: Explorador Pokémon', cat: 'Proyecto', keys: 'pokemon ipokemon spheal', run: openProject('pokemon') },
+            { icon: 'fa-folder', label: 'Proyecto: Spotify to Vinyl', cat: 'Proyecto', keys: 'spotify vinyl react', run: openProject('spotify_vinyl') },
+            { icon: 'fa-folder', label: 'Proyecto: ISI-LAB', cat: 'Proyecto', keys: 'isi lab buscador musical java', run: openProject('isi_lab') },
+            {
+                icon: 'fa-circle-half-stroke', label: 'Cambiar tema (claro / oscuro)', cat: 'Acción', keys: 'tema theme dark light modo oscuro claro',
+                run: () => {
+                    closeCmdk();
+                    const themeToggle = document.getElementById('theme-toggle');
+                    document.body.classList.toggle('theme-light');
+                    const now = document.body.classList.contains('theme-light') ? 'light' : 'dark';
+                    localStorage.setItem('theme', now);
+                    if (themeToggle) themeToggle.textContent = now === 'light' ? '🌞' : '🌗';
+                }
+            },
+            { icon: 'fa-file-arrow-down', label: 'Descargar CV (Español)', cat: 'Acción', keys: 'cv curriculum resume español', run: () => { closeCmdk(); triggerDownload('cv.pdf'); } },
+            { icon: 'fa-file-arrow-down', label: 'Download CV (English)', cat: 'Acción', keys: 'cv curriculum resume english ingles', run: () => { closeCmdk(); triggerDownload('cv-en.pdf'); } },
+            { icon: 'fa-terminal', label: 'Abrir terminal interactiva', cat: 'Acción', keys: 'terminal consola comandos', run: () => { closeCmdk(); const t = document.getElementById('terminal-toggle'); if (t) t.click(); } },
+            {
+                icon: 'fa-copy', label: 'Copiar email', cat: 'Acción', keys: 'email correo copiar contacto',
+                run: () => {
+                    closeCmdk();
+                    if (navigator.clipboard) navigator.clipboard.writeText('rodrigohozlopez@gmail.com').catch(() => {});
+                }
+            },
+            { icon: 'fa-github', fab: true, label: 'Abrir GitHub', cat: 'Enlace', keys: 'github repositorios codigo', run: () => { window.open('https://github.com/rodrisace', '_blank', 'noopener'); } },
+            { icon: 'fa-linkedin', fab: true, label: 'Abrir LinkedIn', cat: 'Enlace', keys: 'linkedin red profesional', run: () => { window.open('https://www.linkedin.com/in/rodrigo-delahoz-db/', '_blank', 'noopener'); } }
+        ];
+
+        function triggerDownload(file) {
+            const a = document.createElement('a');
+            a.href = file; a.download = '';
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function renderCmdk(query) {
+            const q = query.trim().toLowerCase();
+            visible = q ? actions.filter(a => (a.label + ' ' + a.cat + ' ' + a.keys).toLowerCase().includes(q)) : actions.slice();
+            activeIndex = 0;
+            if (!visible.length) {
+                cmdkList.innerHTML = '<li class="cmdk-empty">Sin resultados para "' + escapeHtmlCmdk(q) + '"</li>';
+                return;
+            }
+            cmdkList.innerHTML = visible.map((a, i) =>
+                '<li class="cmdk-item' + (i === 0 ? ' active' : '') + '" role="option" data-i="' + i + '">' +
+                '<span class="cmdk-ico"><i class="' + (a.fab ? 'fab' : 'fas') + ' ' + a.icon + '"></i></span>' +
+                '<span class="cmdk-label">' + a.label + '</span>' +
+                '<span class="cmdk-cat">' + a.cat + '</span></li>'
+            ).join('');
+        }
+
+        function escapeHtmlCmdk(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+        function setActive(i) {
+            const items = cmdkList.querySelectorAll('.cmdk-item');
+            if (!items.length) return;
+            activeIndex = (i + items.length) % items.length;
+            items.forEach((el, idx) => el.classList.toggle('active', idx === activeIndex));
+            items[activeIndex].scrollIntoView({ block: 'nearest' });
+        }
+
+        function openCmdk() {
+            cmdkPrevFocus = document.activeElement;
+            cmdkInput.value = '';
+            renderCmdk('');
+            cmdkOverlay.classList.add('open');
+            cmdkOverlay.setAttribute('aria-hidden', 'false');
+            setTimeout(() => cmdkInput.focus(), 50);
+        }
+        function closeCmdk() {
+            cmdkOverlay.classList.remove('open');
+            cmdkOverlay.setAttribute('aria-hidden', 'true');
+            if (cmdkPrevFocus && cmdkPrevFocus.focus) cmdkPrevFocus.focus();
+        }
+
+        if (cmdkTrigger) cmdkTrigger.addEventListener('click', openCmdk);
+        cmdkInput.addEventListener('input', () => renderCmdk(cmdkInput.value));
+        cmdkOverlay.addEventListener('click', (e) => { if (e.target === cmdkOverlay) closeCmdk(); });
+
+        cmdkList.addEventListener('click', (e) => {
+            const li = e.target.closest('.cmdk-item');
+            if (!li) return;
+            const a = visible[parseInt(li.dataset.i, 10)];
+            if (a) a.run();
+        });
+
+        cmdkInput.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIndex + 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIndex - 1); }
+            else if (e.key === 'Enter') { e.preventDefault(); const a = visible[activeIndex]; if (a) a.run(); }
+            else if (e.key === 'Escape') { closeCmdk(); }
+        });
+
+        // Atajo global: Cmd+K (Mac) o Ctrl+K
+        window.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                if (cmdkOverlay.classList.contains('open')) closeCmdk(); else openCmdk();
+            }
+        });
+    }
+
+    /* ---------- 8. MENSAJE OCULTO PARA QUIEN ABRE LA CONSOLA ---------- */
     console.log('%c¿Buscando talento? 👀', 'color:#8b5cf6;font-size:18px;font-weight:700;');
-    console.log('%cPista: pulsa la tecla «`» en la web para abrir mi terminal interactiva.', 'color:#3b82f6;font-size:13px;');
+    console.log('%cPulsa ⌘K (o Ctrl+K) para la paleta de comandos, o «`» para mi terminal interactiva.', 'color:#3b82f6;font-size:13px;');
     console.log('%c…y prueba el código Konami: ↑ ↑ ↓ ↓ ← → ← → B A', 'color:#a1a1aa;font-size:12px;');
 });
