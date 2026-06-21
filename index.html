@@ -27,7 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=3.6">
+    <link rel="stylesheet" href="css/styles.css?v=3.7">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo de la Hoz, desarrollador full-stack, Java, Python, JavaScript, SQL, bases de datos">
@@ -521,13 +521,16 @@
                     </div>
                 </div>
 
-                <div class="proyecto-card" data-proj="spotify_vinyl" data-cat="web backend">
+                <div class="proyecto-card" data-proj="spotify_vinyl" data-cat="web backend bd">
                     <div class="proyecto-image-container">
-                        <img src="images/spotify_to_vinyl.png" alt="Miniatura Spotify to Vinyl" class="proyecto-img"
+                        <img src="images/isi_lab.png" alt="Miniatura Spotify to Vinyl" class="proyecto-img"
                             loading="lazy" decoding="async" />
                         <div class="proyecto-overlay">
                             <div class="proyecto-links">
-                                <a href="https://github.com/rodrisace" target="_blank"
+                                <a href="#demos" onclick="activateDemo('isilab')" title="Ver demo interactiva">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                                <a href="https://github.com/AlbertoPalenciaQuinones/ISI-LAB" target="_blank"
                                     rel="noopener" title="Ver en GitHub">
                                     <i class="fab fa-github"></i>
                                 </a>
@@ -536,15 +539,16 @@
                     </div>
                     <div class="proyecto-content">
                         <h3>Spotify to Vinyl</h3>
-                        <p>Plataforma para generar diseños personalizados de vinilos físicos coleccionables basados en las playlists del usuario.</p>
+                        <p>Base de datos relacional y motor de búsqueda musical para gestionar artistas, álbumes y pistas de forma ágil.</p>
                         <div class="proyecto-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Spotify API</span>
-                            <span class="tech-tag">UX/UI</span>
+                            <span class="tech-tag">Java SE</span>
+                            <span class="tech-tag">JDBC</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">HTML/CSS</span>
                         </div>
                         <div class="proyecto-btns">
                             <button class="btn-detail" data-open="spotify_vinyl">Detalles</button>
+                            <a href="#demos" class="btn-demo" onclick="activateDemo('isilab')"><i class="fas fa-play"></i> Demo</a>
                         </div>
                     </div>
                 </div>
@@ -610,38 +614,6 @@
                         <div class="proyecto-btns">
                             <button class="btn-detail" data-open="rt_scheduler">Detalles</button>
                             <a href="#demos" class="btn-demo" onclick="activateDemo('rtscheduler')"><i class="fas fa-play"></i> Demo</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proyecto-card" data-proj="isi_lab" data-cat="backend bd">
-                    <div class="proyecto-image-container">
-                        <img src="images/isi_lab.png" alt="Miniatura ISI-LAB" class="proyecto-img"
-                            loading="lazy" decoding="async" />
-                        <div class="proyecto-overlay">
-                            <div class="proyecto-links">
-                                <a href="#demos" onclick="activateDemo('isilab')" title="Ver demo interactiva">
-                                    <i class="fas fa-play"></i>
-                                </a>
-                                <a href="https://github.com/AlbertoPalenciaQuinones/ISI-LAB" target="_blank"
-                                    rel="noopener" title="Ver en GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="proyecto-content">
-                        <h3>ISI-LAB - Buscador Musical</h3>
-                        <p>Base de datos relacional y motor de búsqueda musical para gestionar artistas, álbumes y pistas de forma ágil.</p>
-                        <div class="proyecto-tech">
-                            <span class="tech-tag">Java SE</span>
-                            <span class="tech-tag">JDBC</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">HTML/CSS</span>
-                        </div>
-                        <div class="proyecto-btns">
-                            <button class="btn-detail" data-open="isi_lab">Detalles</button>
-                            <a href="#demos" class="btn-demo" onclick="activateDemo('isilab')"><i class="fas fa-play"></i> Demo</a>
                         </div>
                     </div>
                 </div>
