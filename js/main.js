@@ -344,6 +344,22 @@ document.addEventListener('DOMContentLoaded', () => {
                    <p class="muted">Tecnologías: React.js, Node.js, Express, Spotify Web API, CSS Modules</p>
                    <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         },
+        snipvault: {
+            title: 'SnipVault — Bóveda de Snippets',
+            body: `<p>Tu bóveda personal de fragmentos de código. Guarda, busca y reutiliza tus snippets favoritos sin volver a perderlos en un chat o un Gist olvidado.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Autenticación completa con JWT (registro, login, hash bcrypt) y aislamiento por usuario.</li>
+                       <li>CRUD de snippets con etiquetas N:M creadas al vuelo y normalizadas a minúsculas.</li>
+                       <li>Búsqueda de texto libre (título, descripción y código), filtros por lenguaje y por favoritos.</li>
+                       <li>Buscador estilo paleta de comandos y botón de copiar al portapapeles.</li>
+                       <li>Documentación automática de la API en <code>/docs</code> (Swagger UI) y <code>/redoc</code>.</li>
+                       <li>Tests con pytest (backend) y Vitest + Testing Library (frontend). CI en GitHub Actions.</li>
+                       <li>Despliegue con Docker Compose en un solo comando. Compatible con SQLite y PostgreSQL.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: FastAPI, SQLAlchemy 2.0, Pydantic v2, React 18, TypeScript, Vite, Docker</p>
+                   <p><a href="https://github.com/RodriSace/SnipVault" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+        },
         isi_lab: {
             title: 'ISI-LAB (Buscador Musical)',
             body: `<p>Sistema de gestión y búsqueda de información musical desarrollado bajo principios de bases de datos relacionales y diseño de software orientado a objetos.</p>
