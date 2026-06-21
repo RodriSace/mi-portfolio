@@ -593,115 +593,130 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%c…y prueba el código Konami: ↑ ↑ ↓ ↓ ← → ← → B A', 'color:#a1a1aa;font-size:12px;');
 });
 
+
 /* ============================================================
-   SNIPVAULT DEMO — v3.1
+   DEMOS INTERACTIVAS — v3.2
    ============================================================ */
+
+/* ---- Tab switcher ---- */
+document.querySelectorAll('.demo-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.demo-panel').forEach(p => p.classList.add('hidden'));
+        btn.classList.add('active');
+        const panel = document.getElementById('demo-' + btn.dataset.demo);
+        if (panel) panel.classList.remove('hidden');
+    });
+});
+
+/* ========================================================
+   SNIPVAULT — simulado (datos en memoria)
+   ======================================================== */
 (function () {
-    const API = 'https://snipvault-api.onrender.com';
-    let token = null;
-    let searchTimeout = null;
-
     const $ = id => document.getElementById(id);
+    let currentUser = null;
+    let snippets = [];
+    let nextId = 1;
 
-    // --- helpers ---
+    const SEED = [
+        { id: nextId++, title: 'Fetch con async/await', language: 'JavaScript', code: 'const res = await fetch(url);\nconst data = await res.json();\nconsole.log(data);', tags: ['api','utils'], is_favorite: true },
+        { id: nextId++, title: 'Decorador JWT FastAPI', language: 'Python', code: 'def get_current_user(token: str = Depends(oauth2_scheme)):\n    payload = jwt.decode(token, SECRET_KEY)\n    return payload.get("sub")', tags: ['auth','fastapi'], is_favorite: false },
+        { id: nextId++, title: 'useState con TypeScript', language: 'TypeScript', code: 'const [count, setCount] = useState<number>(0);', tags: ['react','hooks'], is_favorite: false },
+    ];
+
+    function escHtml(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
     function setMsg(id, text, type) {
-        const el = $(id);
-        if (!el) return;
-        el.textContent = text;
-        el.className = 'sv-msg ' + (type || '');
-    }
-    async function apiFetch(path, opts = {}) {
-        const headers = { 'Content-Type': 'application/json' };
-        if (token) headers['Authorization'] = 'Bearer ' + token;
-        const r = await fetch(API + path, { ...opts, headers });
-        const data = await r.json().catch(() => ({}));
-        if (!r.ok) throw new Error(data.detail || 'Error ' + r.status);
-        return data;
+        const el = $(id); if (!el) return;
+        el.textContent = text; el.className = 'sv-msg ' + (type||'');
     }
 
-    // --- tabs ---
+    /* tabs */
     document.querySelectorAll('.sv-tab').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.sv-tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
-            const tab = btn.dataset.tab;
-            $('sv-tab-login').classList.toggle('hidden', tab !== 'login');
-            $('sv-tab-register').classList.toggle('hidden', tab !== 'register');
-            setMsg('sv-auth-msg', '');
+            $('sv-tab-login').classList.toggle('hidden', btn.dataset.tab !== 'login');
+            $('sv-tab-register').classList.toggle('hidden', btn.dataset.tab !== 'register');
+            setMsg('sv-auth-msg','');
         });
     });
 
-    // --- register ---
+    /* register */
     const regBtn = $('sv-reg-btn');
-    if (regBtn) regBtn.addEventListener('click', async () => {
-        const username = $('sv-reg-user').value.trim();
-        const password = $('sv-reg-pass').value;
-        if (!username || !password) return setMsg('sv-auth-msg', 'Rellena usuario y contraseña', 'err');
-        regBtn.disabled = true;
-        try {
-            await apiFetch('/auth/register', { method: 'POST', body: JSON.stringify({ username, password }) });
-            setMsg('sv-auth-msg', '✅ Cuenta creada. Ahora inicia sesión.', 'ok');
-            // switch to login tab
-            document.querySelector('.sv-tab[data-tab="login"]').click();
-            $('sv-login-user').value = username;
-        } catch (e) { setMsg('sv-auth-msg', '❌ ' + e.message, 'err'); }
-        finally { regBtn.disabled = false; }
+    if (regBtn) regBtn.addEventListener('click', () => {
+        const u = $('sv-reg-user').value.trim();
+        const p = $('sv-reg-pass').value;
+        if (!u || !p) return setMsg('sv-auth-msg','Rellena usuario y contraseña','err');
+        setMsg('sv-auth-msg','✅ Cuenta creada. Ahora inicia sesión.','ok');
+        document.querySelector('.sv-tab[data-tab="login"]').click();
+        $('sv-login-user').value = u;
     });
 
-    // --- login ---
+    /* login — cualquier credencial funciona */
     const loginBtn = $('sv-login-btn');
-    if (loginBtn) loginBtn.addEventListener('click', async () => {
-        const username = $('sv-login-user').value.trim();
-        const password = $('sv-login-pass').value;
-        if (!username || !password) return setMsg('sv-auth-msg', 'Rellena usuario y contraseña', 'err');
-        loginBtn.disabled = true;
-        try {
-            const body = new URLSearchParams({ username, password });
-            const r = await fetch(API + '/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body
-            });
-            const data = await r.json().catch(() => ({}));
-            if (!r.ok) throw new Error(data.detail || 'Credenciales incorrectas');
-            token = data.access_token;
-            $('sv-welcome').textContent = '🦭 Hola, ' + username;
-            $('sv-auth-panel').classList.add('hidden');
-            $('sv-app-panel').classList.remove('hidden');
-            loadSnippets();
-        } catch (e) { setMsg('sv-auth-msg', '❌ ' + e.message, 'err'); }
-        finally { loginBtn.disabled = false; }
+    if (loginBtn) loginBtn.addEventListener('click', () => {
+        const u = $('sv-login-user').value.trim();
+        const p = $('sv-login-pass').value;
+        if (!u || !p) return setMsg('sv-auth-msg','Rellena usuario y contraseña','err');
+        currentUser = u;
+        snippets = JSON.parse(JSON.stringify(SEED)); // copia del seed
+        $('sv-welcome').textContent = '🦭 Hola, ' + u;
+        $('sv-auth-panel').classList.add('hidden');
+        $('sv-app-panel').classList.remove('hidden');
+        renderSnippets(snippets);
+    });
+    [$('sv-login-user'), $('sv-login-pass')].forEach(el => {
+        if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn && loginBtn.click(); });
     });
 
-    // --- logout ---
+    /* logout */
     const logoutBtn = $('sv-logout-btn');
     if (logoutBtn) logoutBtn.addEventListener('click', () => {
-        token = null;
+        currentUser = null; snippets = [];
         $('sv-app-panel').classList.add('hidden');
         $('sv-auth-panel').classList.remove('hidden');
-        $('sv-login-user').value = '';
-        $('sv-login-pass').value = '';
-        setMsg('sv-auth-msg', '');
+        $('sv-login-user').value = ''; $('sv-login-pass').value = '';
+        setMsg('sv-auth-msg','');
     });
 
-    // --- load snippets ---
-    async function loadSnippets(q = '') {
-        const list = $('sv-snippets-list');
-        if (!list) return;
-        list.innerHTML = '<p class="sv-empty">Cargando…</p>';
-        try {
-            const params = q ? '?q=' + encodeURIComponent(q) : '';
-            const snippets = await apiFetch('/snippets' + params);
-            renderSnippets(snippets);
-        } catch (e) {
-            list.innerHTML = '<p class="sv-empty" style="color:#f87171">Error al cargar: ' + e.message + '</p>';
-        }
-    }
+    /* search */
+    let searchT = null;
+    const searchEl = $('sv-search');
+    if (searchEl) searchEl.addEventListener('input', () => {
+        clearTimeout(searchT);
+        searchT = setTimeout(() => {
+            const q = searchEl.value.trim().toLowerCase();
+            renderSnippets(q ? snippets.filter(s =>
+                s.title.toLowerCase().includes(q) ||
+                s.code.toLowerCase().includes(q) ||
+                (s.language||'').toLowerCase().includes(q) ||
+                s.tags.some(t => t.toLowerCase().includes(q))
+            ) : snippets);
+        }, 250);
+    });
 
-    function renderSnippets(snippets) {
-        const list = $('sv-snippets-list');
-        if (!snippets.length) { list.innerHTML = '<p class="sv-empty">No hay snippets aún. ¡Guarda el primero! 👆</p>'; return; }
-        list.innerHTML = snippets.map(s => `
+    /* save */
+    const saveBtn = $('sv-save-btn');
+    if (saveBtn) saveBtn.addEventListener('click', () => {
+        const title = $('sv-new-title').value.trim();
+        const code  = $('sv-new-code').value.trim();
+        const lang  = $('sv-new-lang').value || null;
+        const tags  = $('sv-new-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+        if (!title || !code) return setMsg('sv-save-msg','Título y código son obligatorios','err');
+        snippets.unshift({ id: nextId++, title, code, language: lang, tags, is_favorite: false });
+        $('sv-new-title').value=''; $('sv-new-code').value='';
+        $('sv-new-lang').value=''; $('sv-new-tags').value='';
+        setMsg('sv-save-msg','✅ Snippet guardado','ok');
+        setTimeout(()=>setMsg('sv-save-msg',''),2000);
+        renderSnippets(snippets);
+    });
+
+    function renderSnippets(list) {
+        const el = $('sv-snippets-list'); if (!el) return;
+        if (!list.length) { el.innerHTML='<p class="sv-empty">No hay snippets. ¡Guarda el primero! 👆</p>'; return; }
+        el.innerHTML = list.map(s => `
             <div class="sv-card" data-id="${s.id}">
                 <div class="sv-card-header">
                     <span class="sv-card-title">${escHtml(s.title)}</span>
@@ -709,85 +724,217 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <pre class="sv-card-code">${escHtml(s.code)}</pre>
                 <div class="sv-card-footer">
-                    ${(s.tags || []).map(t => `<span class="sv-tag">${escHtml(t.name)}</span>`).join('')}
+                    ${s.tags.map(t=>`<span class="sv-tag">${escHtml(t)}</span>`).join('')}
                     <div class="sv-card-actions">
                         <button class="sv-icon-btn sv-copy-btn" title="Copiar"><i class="fas fa-copy"></i></button>
-                        <button class="sv-icon-btn sv-fav-btn ${s.is_favorite ? 'active' : ''}" data-id="${s.id}" title="Favorito"><i class="fas fa-star"></i></button>
+                        <button class="sv-icon-btn sv-fav-btn ${s.is_favorite?'active':''}" data-id="${s.id}" title="Favorito"><i class="fas fa-star"></i></button>
                         <button class="sv-icon-btn sv-del-btn" data-id="${s.id}" title="Eliminar"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             </div>`).join('');
 
-        // copy buttons
-        list.querySelectorAll('.sv-copy-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const code = btn.closest('.sv-card').querySelector('.sv-card-code').textContent;
-                navigator.clipboard.writeText(code).then(() => {
-                    btn.innerHTML = '<i class="fas fa-check"></i>';
-                    setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i>', 1500);
-                });
+        el.querySelectorAll('.sv-copy-btn').forEach(btn => btn.addEventListener('click', () => {
+            const code = btn.closest('.sv-card').querySelector('.sv-card-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.innerHTML='<i class="fas fa-check"></i>';
+                setTimeout(()=>btn.innerHTML='<i class="fas fa-copy"></i>',1500);
             });
-        });
-        // fav buttons
-        list.querySelectorAll('.sv-fav-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = btn.dataset.id;
-                const isFav = btn.classList.contains('active');
-                try {
-                    await apiFetch('/snippets/' + id, { method: 'PATCH', body: JSON.stringify({ is_favorite: !isFav }) });
-                    btn.classList.toggle('active');
-                } catch (e) { console.error(e); }
-            });
-        });
-        // delete buttons
-        list.querySelectorAll('.sv-del-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = btn.dataset.id;
-                if (!confirm('¿Eliminar este snippet?')) return;
-                try {
-                    await apiFetch('/snippets/' + id, { method: 'DELETE' });
-                    btn.closest('.sv-card').remove();
-                    if (!$('sv-snippets-list').querySelector('.sv-card'))
-                        $('sv-snippets-list').innerHTML = '<p class="sv-empty">No hay snippets aún. ¡Guarda el primero! 👆</p>';
-                } catch (e) { console.error(e); }
-            });
-        });
+        }));
+        el.querySelectorAll('.sv-fav-btn').forEach(btn => btn.addEventListener('click', () => {
+            const id = +btn.dataset.id;
+            const s = snippets.find(x=>x.id===id); if (s) s.is_favorite = !s.is_favorite;
+            btn.classList.toggle('active');
+        }));
+        el.querySelectorAll('.sv-del-btn').forEach(btn => btn.addEventListener('click', () => {
+            if (!confirm('¿Eliminar este snippet?')) return;
+            const id = +btn.dataset.id;
+            snippets = snippets.filter(x=>x.id!==id);
+            renderSnippets(snippets);
+        }));
+    }
+})();
+
+/* ========================================================
+   GRAMOLA — simulado
+   ======================================================== */
+(function () {
+    const $ = id => document.getElementById(id);
+    let tokens = 3;
+    let queue = [];
+    let isPlaying = false;
+    let progress = 0;
+    let progressInterval = null;
+
+    const CATALOG = [
+        { title:'Blinding Lights', artist:'The Weeknd', duration:200 },
+        { title:'Anti-Hero', artist:'Taylor Swift', duration:193 },
+        { title:'Flowers', artist:'Miley Cyrus', duration:200 },
+        { title:'As It Was', artist:'Harry Styles', duration:167 },
+        { title:'Unholy', artist:'Sam Smith', duration:156 },
+        { title:'Shakira: Bzrp Session 53', artist:'Bizarrap', duration:198 },
+        { title:'Quevedo: Bzrp Session 52', artist:'Bizarrap', duration:197 },
+        { title:'Despechá', artist:'Rosalía', duration:152 },
+        { title:'PROVENZA', artist:'Karol G', duration:203 },
+        { title:'La Bachata', artist:'Manuel Turizo', duration:198 },
+        { title:'Tití Me Preguntó', artist:'Bad Bunny', duration:229 },
+        { title:'Counting Stars', artist:'OneRepublic', duration:257 },
+        { title:'Watermelon Sugar', artist:'Harry Styles', duration:174 },
+        { title:'Dynamite', artist:'BTS', duration:199 },
+    ];
+
+    function updateTokens() {
+        const el = $('gr-tokens'); if (el) el.textContent = '🪙 ' + tokens + ' token' + (tokens!==1?'s':'');
+    }
+    function renderQueue() {
+        const el = $('gr-queue'); if (!el) return;
+        if (!queue.length) { el.innerHTML='<p class="sv-empty" style="font-size:.82rem">Cola vacía — añade una canción 🎵</p>'; return; }
+        el.innerHTML = queue.map((s,i)=>`
+            <div class="gr-queue-item">
+                <span class="gr-queue-pos">${i+1}</span>
+                <span>${s.title} · <em style="color:#4b5563">${s.artist}</em></span>
+            </div>`).join('');
     }
 
-    // --- save snippet ---
-    const saveBtn = $('sv-save-btn');
-    if (saveBtn) saveBtn.addEventListener('click', async () => {
-        const title = $('sv-new-title').value.trim();
-        const code = $('sv-new-code').value.trim();
-        const language = $('sv-new-lang').value || null;
-        const tagsRaw = $('sv-new-tags').value.trim();
-        const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
-        if (!title || !code) return setMsg('sv-save-msg', 'Título y código son obligatorios', 'err');
-        saveBtn.disabled = true;
-        try {
-            await apiFetch('/snippets', { method: 'POST', body: JSON.stringify({ title, code, language, tags }) });
-            setMsg('sv-save-msg', '✅ Snippet guardado', 'ok');
-            $('sv-new-title').value = ''; $('sv-new-code').value = '';
-            $('sv-new-tags').value = ''; $('sv-new-lang').value = '';
-            setTimeout(() => setMsg('sv-save-msg', ''), 2500);
-            loadSnippets();
-        } catch (e) { setMsg('sv-save-msg', '❌ ' + e.message, 'err'); }
-        finally { saveBtn.disabled = false; }
-    });
+    /* search */
+    const searchBtn = $('gr-search-btn');
+    if (searchBtn) searchBtn.addEventListener('click', doSearch);
+    const searchInput = $('gr-search');
+    if (searchInput) searchInput.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
-    // --- search ---
-    const searchInput = $('sv-search');
-    if (searchInput) searchInput.addEventListener('input', () => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => loadSnippets(searchInput.value.trim()), 350);
-    });
-
-    // --- enter key on login ---
-    [$('sv-login-pass'), $('sv-login-user')].forEach(el => {
-        if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
-    });
-
-    function escHtml(str) {
-        return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    function doSearch() {
+        const q = ($('gr-search')||{}).value.trim().toLowerCase();
+        const el = $('gr-results'); if (!el) return;
+        const results = q ? CATALOG.filter(s =>
+            s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q)
+        ).slice(0,4) : [];
+        if (!results.length && q) { el.innerHTML='<p class="sv-empty" style="font-size:.82rem">Sin resultados para "'+q+'"</p>'; return; }
+        el.innerHTML = results.map((s,i) => `
+            <div class="gr-result-item">
+                <span>🎵 ${s.title} — <em>${s.artist}</em></span>
+                <button class="gr-add-btn" data-idx="${i}" ${tokens<1?'disabled':''}>+1🪙 Añadir</button>
+            </div>`).join('');
+        el.querySelectorAll('.gr-add-btn').forEach((btn,i) => btn.addEventListener('click', () => {
+            if (tokens < 1) return;
+            tokens--;
+            queue.push(results[i]);
+            updateTokens(); renderQueue();
+            btn.textContent = '✅ Añadida'; btn.disabled = true;
+            if (!isPlaying) startPlaying();
+        }));
     }
+
+    /* player */
+    function startPlaying() {
+        if (!queue.length) return;
+        isPlaying = true;
+        const song = queue[0];
+        const titleEl = $('gr-song-title'); const artistEl = $('gr-song-artist');
+        const vinyl = $('gr-vinyl'); const playBtn = $('gr-play-btn');
+        if (titleEl) titleEl.textContent = song.title;
+        if (artistEl) artistEl.textContent = song.artist;
+        if (vinyl) vinyl.classList.add('spinning');
+        if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+        progress = 0;
+        clearInterval(progressInterval);
+        progressInterval = setInterval(() => {
+            progress += (100 / song.duration) * 0.5;
+            const fill = $('gr-progress'); if (fill) fill.style.width = Math.min(progress,100) + '%';
+            if (progress >= 100) { clearInterval(progressInterval); nextSong(); }
+        }, 500);
+    }
+    function nextSong() {
+        queue.shift(); renderQueue();
+        if (queue.length) { startPlaying(); }
+        else {
+            isPlaying = false;
+            const titleEl=$('gr-song-title'); const artistEl=$('gr-song-artist');
+            const vinyl=$('gr-vinyl'); const playBtn=$('gr-play-btn'); const fill=$('gr-progress');
+            if (titleEl) titleEl.textContent='Esperando canción…';
+            if (artistEl) artistEl.textContent='—';
+            if (vinyl) vinyl.classList.remove('spinning');
+            if (playBtn) playBtn.innerHTML='<i class="fas fa-play"></i> Reproducir';
+            if (fill) fill.style.width='0%';
+        }
+    }
+
+    const playBtn = $('gr-play-btn');
+    if (playBtn) playBtn.addEventListener('click', () => {
+        if (!queue.length) return;
+        if (isPlaying) {
+            isPlaying = false; clearInterval(progressInterval);
+            $('gr-vinyl').classList.remove('spinning');
+            playBtn.innerHTML='<i class="fas fa-play"></i> Reproducir';
+        } else { startPlaying(); }
+    });
+    const skipBtn = $('gr-skip-btn');
+    if (skipBtn) skipBtn.addEventListener('click', () => { clearInterval(progressInterval); nextSong(); });
+
+    updateTokens(); renderQueue();
+})();
+
+/* ========================================================
+   ISI-LAB — simulado
+   ======================================================== */
+(function () {
+    const $ = id => document.getElementById(id);
+
+    const DB = [
+        { type:'artist', name:'Rosalía', meta:'Pop / Flamenco · España', year:'2017–' },
+        { type:'artist', name:'Bad Bunny', meta:'Reggaeton / Trap Latino · Puerto Rico', year:'2016–' },
+        { type:'artist', name:'Bizarrap', meta:'EDM / Urban · Argentina', year:'2017–' },
+        { type:'artist', name:'Karol G', meta:'Reggaeton / Pop · Colombia', year:'2010–' },
+        { type:'artist', name:'Harry Styles', meta:'Pop / Rock · Reino Unido', year:'2010–' },
+        { type:'album',  name:'MOTOMAMI', meta:'Rosalía', year:'2022' },
+        { type:'album',  name:'Un Verano Sin Ti', meta:'Bad Bunny', year:'2022' },
+        { type:'album',  name:'Fine Line', meta:'Harry Styles', year:'2019' },
+        { type:'album',  name:'MAÑANA SERÁ BONITO', meta:'Karol G', year:'2023' },
+        { type:'album',  name:'Harry\'s House', meta:'Harry Styles', year:'2022' },
+        { type:'track',  name:'Despechá', meta:'MOTOMAMI · Rosalía', year:'2022' },
+        { type:'track',  name:'Tití Me Preguntó', meta:'Un Verano Sin Ti · Bad Bunny', year:'2022' },
+        { type:'track',  name:'Watermelon Sugar', meta:'Fine Line · Harry Styles', year:'2019' },
+        { type:'track',  name:'PROVENZA', meta:'MAÑANA SERÁ BONITO · Karol G', year:'2023' },
+        { type:'track',  name:'As It Was', meta:'Harry\'s House · Harry Styles', year:'2022' },
+        { type:'track',  name:'Bzrp Session 52', meta:'Bizarrap, Quevedo', year:'2022' },
+        { type:'track',  name:'Bzrp Session 53', meta:'Bizarrap, Shakira', year:'2023' },
+        { type:'artist', name:'OneRepublic', meta:'Pop / Rock · EEUU', year:'2002–' },
+        { type:'album',  name:'Human', meta:'OneRepublic', year:'2021' },
+        { type:'track',  name:'Counting Stars', meta:'Native · OneRepublic', year:'2013' },
+    ];
+
+    function typeLabel(t) {
+        if (t==='artist') return '<span class="isi-type-badge isi-type-artist">Artista</span>';
+        if (t==='album')  return '<span class="isi-type-badge isi-type-album">Álbum</span>';
+        return '<span class="isi-type-badge isi-type-track">Canción</span>';
+    }
+    function renderResults(list) {
+        const el = $('isi-results'); if (!el) return;
+        if (!list.length) { el.innerHTML='<p class="sv-empty">Sin resultados.</p>'; return; }
+        el.innerHTML = list.map(r=>`
+            <div class="isi-card">
+                ${typeLabel(r.type)}
+                <div class="isi-card-main">
+                    <div class="isi-card-name">${r.name}</div>
+                    <div class="isi-card-meta">${r.meta}</div>
+                </div>
+                <span class="isi-card-year">${r.year}</span>
+            </div>`).join('');
+    }
+
+    function doSearch() {
+        const q = ($('isi-search')||{}).value.trim().toLowerCase();
+        const filter = ($('isi-filter')||{}).value || 'all';
+        if (!q) { $('isi-results').innerHTML='<p class="sv-empty">Introduce un término para buscar.</p>'; return; }
+        const results = DB.filter(r =>
+            (filter==='all' || r.type===filter) &&
+            (r.name.toLowerCase().includes(q) || r.meta.toLowerCase().includes(q))
+        );
+        renderResults(results);
+    }
+
+    const searchBtn = $('isi-search-btn');
+    if (searchBtn) searchBtn.addEventListener('click', doSearch);
+    const searchEl = $('isi-search');
+    if (searchEl) searchEl.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+    const filterEl = $('isi-filter');
+    if (filterEl) filterEl.addEventListener('change', doSearch);
 })();

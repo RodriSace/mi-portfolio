@@ -27,7 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=3.1">
+    <link rel="stylesheet" href="css/styles.css?v=3.2">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo de la Hoz, desarrollador full-stack, Java, Python, JavaScript, SQL, bases de datos">
@@ -60,7 +60,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-mi">Sobre mí</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#snipvault-demo">SnipVault</a></li>
+                <li><a href="#demos">Demos</a></li>
                 <li><a href="#experiencia">Experiencia</a></li>
                 <li><a href="#approach">Enfoque</a></li>
                 <li><a href="#contacto">Contacto</a></li>
@@ -608,12 +608,21 @@
         </div>
     </section>
 
-    <section id="snipvault-demo" class="snipvault-demo">
+    <!-- ===== DEMOS INTERACTIVAS ===== -->
+    <section id="demos" class="demos-section">
         <div class="container">
-            <h2 class="section-title">SnipVault — Demo en vivo</h2>
-            <p class="pokedex-intro">API REST real desplegada en Render. Crea una cuenta, guarda snippets y explora la <a href="https://snipvault-api.onrender.com/docs" target="_blank" rel="noopener">documentación Swagger</a> generada automáticamente.</p>
-            <div class="sv-demo-wrapper">
-                <!-- Auth panel -->
+            <h2 class="section-title">Demos interactivas</h2>
+            <p class="pokedex-intro">Prueba los proyectos directamente desde aquí — simulaciones del flujo real de cada aplicación.</p>
+
+            <!-- Demo tabs -->
+            <div class="demos-tabs">
+                <button class="demo-tab active" data-demo="snipvault">🦭 SnipVault</button>
+                <button class="demo-tab" data-demo="gramola">🎵 La Gramola</button>
+                <button class="demo-tab" data-demo="isilab">🔍 ISI-LAB</button>
+            </div>
+
+            <!-- ── SNIPVAULT ── -->
+            <div class="demo-panel" id="demo-snipvault">
                 <div class="sv-auth-panel" id="sv-auth-panel">
                     <div class="sv-tabs">
                         <button class="sv-tab active" data-tab="login">Iniciar sesión</button>
@@ -623,17 +632,15 @@
                         <input class="sv-input" id="sv-login-user" placeholder="Usuario" autocomplete="off" spellcheck="false">
                         <input class="sv-input" id="sv-login-pass" placeholder="Contraseña" type="password">
                         <button class="btn-primary sv-btn" id="sv-login-btn"><i class="fas fa-sign-in-alt"></i> Entrar</button>
-                        <p class="sv-hint">¿No tienes cuenta? Regístrate en segundos →</p>
+                        <p class="sv-hint">Demo simulada · cualquier usuario/contraseña funciona</p>
                     </div>
                     <div class="sv-tab-content hidden" id="sv-tab-register">
-                        <input class="sv-input" id="sv-reg-user" placeholder="Usuario" autocomplete="off" spellcheck="false">
+                        <input class="sv-input" id="sv-reg-user" placeholder="Elige un usuario" autocomplete="off" spellcheck="false">
                         <input class="sv-input" id="sv-reg-pass" placeholder="Contraseña" type="password">
                         <button class="btn-primary sv-btn" id="sv-reg-btn"><i class="fas fa-user-plus"></i> Crear cuenta</button>
                     </div>
                     <div id="sv-auth-msg" class="sv-msg" aria-live="polite"></div>
                 </div>
-
-                <!-- App panel (hidden until logged in) -->
                 <div class="sv-app-panel hidden" id="sv-app-panel">
                     <div class="sv-app-header">
                         <span id="sv-welcome" class="sv-welcome">🦭 Bienvenido</span>
@@ -642,9 +649,7 @@
                             <button class="btn-outline sv-btn-sm" id="sv-logout-btn">Salir</button>
                         </div>
                     </div>
-
-                    <!-- New snippet form -->
-                    <div class="sv-new-form" id="sv-new-form">
+                    <div class="sv-new-form">
                         <div class="sv-form-row">
                             <input class="sv-input" id="sv-new-title" placeholder="Título del snippet" autocomplete="off" spellcheck="false">
                             <select class="sv-input sv-select" id="sv-new-lang">
@@ -655,18 +660,70 @@
                         </div>
                         <textarea class="sv-input sv-textarea" id="sv-new-code" placeholder="Pega tu código aquí…" spellcheck="false"></textarea>
                         <div class="sv-form-row">
-                            <input class="sv-input" id="sv-new-tags" placeholder="Etiquetas separadas por comas (ej: api, utils)" autocomplete="off" spellcheck="false">
+                            <input class="sv-input" id="sv-new-tags" placeholder="Etiquetas (ej: api, utils)" autocomplete="off" spellcheck="false">
                             <button class="btn-primary sv-btn-sm" id="sv-save-btn"><i class="fas fa-save"></i> Guardar</button>
                         </div>
                         <div id="sv-save-msg" class="sv-msg" aria-live="polite"></div>
                     </div>
+                    <div id="sv-snippets-list" class="sv-snippets-list" aria-live="polite"></div>
+                </div>
+            </div>
 
-                    <!-- Snippets list -->
-                    <div id="sv-snippets-list" class="sv-snippets-list" aria-live="polite">
-                        <p class="sv-empty">Cargando snippets…</p>
+            <!-- ── GRAMOLA ── -->
+            <div class="demo-panel hidden" id="demo-gramola">
+                <div class="gramola-wrapper">
+                    <div class="gramola-queue-panel">
+                        <div class="gramola-header">
+                            <span class="gramola-bar-name">🍺 Bar El Spheal</span>
+                            <span class="gramola-tokens" id="gr-tokens">🪙 3 tokens</span>
+                        </div>
+                        <div class="gramola-search-row">
+                            <input class="sv-input" id="gr-search" placeholder="🎵 Buscar canción…" autocomplete="off" spellcheck="false">
+                            <button class="btn-primary sv-btn-sm" id="gr-search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div id="gr-results" class="gr-results"></div>
+                        <div class="gramola-queue">
+                            <h4 class="gr-queue-title">Cola de reproducción</h4>
+                            <div id="gr-queue" class="gr-queue-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                    <div class="gramola-player-panel">
+                        <div class="gramola-now-playing" id="gr-now-playing">
+                            <div class="gr-vinyl" id="gr-vinyl">🎵</div>
+                            <div class="gr-song-info">
+                                <p class="gr-song-title" id="gr-song-title">Esperando canción…</p>
+                                <p class="gr-song-artist" id="gr-song-artist">—</p>
+                            </div>
+                        </div>
+                        <div class="gr-progress-bar"><div class="gr-progress-fill" id="gr-progress"></div></div>
+                        <div class="gr-controls">
+                            <button class="sv-icon-btn" id="gr-skip-btn" title="Saltar"><i class="fas fa-forward"></i></button>
+                            <button class="btn-primary sv-btn-sm" id="gr-play-btn"><i class="fas fa-play"></i> Reproducir</button>
+                        </div>
+                        <p class="sv-hint" style="margin-top:1rem">Añade canciones con tus tokens · cada una cuesta 1 🪙</p>
                     </div>
                 </div>
             </div>
+
+            <!-- ── ISI-LAB ── -->
+            <div class="demo-panel hidden" id="demo-isilab">
+                <div class="isi-wrapper">
+                    <div class="isi-search-bar">
+                        <input class="sv-input" id="isi-search" placeholder="🔍 Buscar artista, álbum o canción…" autocomplete="off" spellcheck="false">
+                        <select class="sv-input sv-select" id="isi-filter" style="width:140px;flex-shrink:0">
+                            <option value="all">Todo</option>
+                            <option value="artist">Artista</option>
+                            <option value="album">Álbum</option>
+                            <option value="track">Canción</option>
+                        </select>
+                        <button class="btn-primary sv-btn-sm" id="isi-search-btn"><i class="fas fa-search"></i> Buscar</button>
+                    </div>
+                    <div id="isi-results" class="isi-results" aria-live="polite">
+                        <p class="sv-empty">Introduce un término para buscar en la base de datos musical.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 

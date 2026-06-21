@@ -2228,3 +2228,102 @@ footer {
     .sv-form-row .sv-select { width: 100%; }
     .sv-app-header { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============================================================
+   DEMOS INTERACTIVAS — v3.2
+   ============================================================ */
+.demos-section { padding: 6rem 0; background: var(--bg-secondary, #0d0d1a); }
+
+/* Demo tabs nav */
+.demos-tabs { display: flex; gap: .75rem; margin: 2rem 0 1.5rem; flex-wrap: wrap; }
+.demo-tab {
+    padding: .6rem 1.4rem; border-radius: 24px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: transparent; color: var(--text-muted,#6b7280);
+    cursor: pointer; font-size: .9rem; transition: all .2s;
+}
+.demo-tab.active { background: rgba(124,58,237,.2); border-color: #7c3aed; color: #a78bfa; }
+.demo-tab:hover:not(.active) { border-color: rgba(255,255,255,.2); color: #e2e8f0; }
+
+.demo-panel { animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
+
+/* ── GRAMOLA ── */
+.gramola-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media(max-width:700px){ .gramola-wrapper { grid-template-columns:1fr; } }
+
+.gramola-queue-panel, .gramola-player-panel {
+    background: var(--card-bg,#13131f);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 16px; padding: 1.5rem;
+}
+.gramola-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+.gramola-bar-name { font-weight:700; color:#e2e8f0; }
+.gramola-tokens { color:#f59e0b; font-weight:600; font-size:.9rem; }
+.gramola-search-row { display:flex; gap:.5rem; margin-bottom:1rem; }
+.gramola-search-row .sv-input { margin-bottom:0; }
+
+.gr-results { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; min-height:32px; }
+.gr-result-item {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.5rem .75rem; background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.05); border-radius:8px;
+    font-size:.85rem; color:#cbd5e1; gap:.75rem;
+}
+.gr-result-item span { flex:1; }
+.gr-add-btn {
+    background:rgba(124,58,237,.2); border:1px solid #7c3aed;
+    color:#a78bfa; border-radius:6px; padding:.25rem .6rem;
+    cursor:pointer; font-size:.78rem; white-space:nowrap; transition:all .2s;
+}
+.gr-add-btn:hover { background:rgba(124,58,237,.4); }
+.gr-add-btn:disabled { opacity:.4; cursor:not-allowed; }
+
+.gr-queue-title { font-size:.8rem; color:#6b7280; text-transform:uppercase; letter-spacing:.05em; margin-bottom:.6rem; }
+.gr-queue-list { display:flex; flex-direction:column; gap:.35rem; min-height:48px; }
+.gr-queue-item {
+    display:flex; align-items:center; gap:.6rem;
+    padding:.4rem .75rem; background:rgba(124,58,237,.08);
+    border-radius:6px; font-size:.82rem; color:#94a3b8;
+}
+.gr-queue-pos { color:#7c3aed; font-weight:700; width:1.2rem; flex-shrink:0; }
+
+/* Player */
+.gramola-now-playing { display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem; }
+.gr-vinyl {
+    width:64px; height:64px; border-radius:50%;
+    background: conic-gradient(#1a1a2e, #7c3aed, #1a1a2e, #06b6d4, #1a1a2e);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; flex-shrink:0; transition:transform .1s;
+}
+.gr-vinyl.spinning { animation: spin 2s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.gr-song-title { font-weight:600; color:#e2e8f0; font-size:.95rem; margin-bottom:.25rem; }
+.gr-song-artist { color:#6b7280; font-size:.82rem; }
+.gr-progress-bar { height:4px; background:rgba(255,255,255,.08); border-radius:2px; margin-bottom:1rem; overflow:hidden; }
+.gr-progress-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#06b6d4); width:0%; transition:width .5s linear; }
+.gr-controls { display:flex; gap:.75rem; align-items:center; }
+
+/* ── ISI-LAB ── */
+.isi-wrapper { display:flex; flex-direction:column; gap:1rem; }
+.isi-search-bar { display:flex; gap:.75rem; flex-wrap:wrap; }
+.isi-search-bar .sv-input { flex:1; min-width:180px; margin-bottom:0; }
+.isi-results { display:flex; flex-direction:column; gap:.5rem; }
+.isi-card {
+    background:var(--card-bg,#13131f);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:10px; padding:1rem 1.25rem;
+    display:flex; align-items:center; gap:1rem;
+    transition:border-color .2s;
+}
+.isi-card:hover { border-color:rgba(124,58,237,.3); }
+.isi-type-badge {
+    font-size:.7rem; padding:.2rem .55rem; border-radius:20px; white-space:nowrap; flex-shrink:0;
+}
+.isi-type-artist { background:rgba(124,58,237,.2); color:#a78bfa; }
+.isi-type-album  { background:rgba(6,182,212,.15); color:#22d3ee; }
+.isi-type-track  { background:rgba(74,222,128,.12); color:#4ade80; }
+.isi-card-main { flex:1; }
+.isi-card-name { font-weight:600; color:#e2e8f0; font-size:.9rem; }
+.isi-card-meta { color:#6b7280; font-size:.78rem; margin-top:.2rem; }
+.isi-card-year { color:#4b5563; font-size:.82rem; margin-left:auto; }
