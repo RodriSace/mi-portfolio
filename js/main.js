@@ -344,6 +344,25 @@ document.addEventListener('DOMContentLoaded', () => {
                    <p class="muted">Tecnologías: React.js, Node.js, Express, Spotify Web API, CSS Modules</p>
                    <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         },
+        rt_scheduler: {
+            title: 'Planificador Tiempo Real — RMS / DMS / EDF',
+            body: `<p>Simulador interactivo de planificación de sistemas en tiempo real, construido como herramienta de estudio y demostración de los algoritmos clásicos.</p>
+                   <p><strong>Características clave:</strong></p>
+                   <ul>
+                       <li>Editor de tareas periódicas con periodo (T), tiempo de cómputo (C) y plazo (D) editables, con presets incluidos.</li>
+                       <li>Tres algoritmos: <strong>Rate Monotonic (RMS)</strong>, <strong>Deadline Monotonic (DMS)</strong> y <strong>Earliest Deadline First (EDF)</strong>.</li>
+                       <li>Diagrama de Gantt SVG interactivo con llegadas, plazos e incumplimientos resaltados en rojo.</li>
+                       <li>Análisis de planificabilidad en directo: utilización por tarea, cota de Liu & Layland, test hiperbólico y Análisis de Tiempo de Respuesta (RTA).</li>
+                       <li>Preset «RMS falla / EDF ok» que ilustra la optimalidad de EDF frente a algoritmos de prioridad fija.</li>
+                       <li>16 tests unitarios con Vitest sobre funciones puras del motor de simulación. CI + despliegue automático en GitHub Pages.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: React 18, TypeScript 5, Vite, Vitest, GitHub Actions</p>
+                   <p>
+                       <a href="https://rodrisace.github.io/planificador-tiempo-real/" target="_blank" rel="noopener">Demo en vivo</a>
+                       &nbsp;·&nbsp;
+                       <a href="https://github.com/RodriSace/planificador-tiempo-real" target="_blank" rel="noopener">Ver Repositorio</a>
+                   </p>`
+        },
         snipvault: {
             title: 'SnipVault — Bóveda de Snippets',
             body: `<p>Tu bóveda personal de fragmentos de código. Guarda, busca y reutiliza tus snippets favoritos sin volver a perderlos en un chat o un Gist olvidado.</p>

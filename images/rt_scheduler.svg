@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a14"/>
+      <stop offset="100%" style="stop-color:#0f1a2e"/>
+    </linearGradient>
+    <linearGradient id="rms" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c3aed"/>
+      <stop offset="100%" style="stop-color:#9333ea"/>
+    </linearGradient>
+    <linearGradient id="edf" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#0891b2"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="100" cy="80" r="100" fill="#7c3aed" opacity="0.06"/>
+  <circle cx="700" cy="370" r="120" fill="#06b6d4" opacity="0.06"/>
+
+  <!-- Window chrome -->
+  <rect x="40" y="40" width="720" height="370" rx="12" fill="#0d0d1a" stroke="#1e1e3a" stroke-width="1.5"/>
+  <rect x="40" y="40" width="720" height="34" rx="12" fill="#13131f"/>
+  <rect x="40" y="62" width="720" height="12" fill="#13131f"/>
+  <circle cx="64" cy="57" r="5.5" fill="#ff5f57"/>
+  <circle cx="82" cy="57" r="5.5" fill="#febc2e"/>
+  <circle cx="100" cy="57" r="5.5" fill="#28c840"/>
+
+  <!-- Algorithm selector -->
+  <rect x="200" y="47" width="80" height="20" rx="4" fill="#7c3aed" opacity="0.3"/>
+  <text x="240" y="61" text-anchor="middle" font-family="monospace" font-size="11" fill="#a78bfa" font-weight="bold">RMS</text>
+  <rect x="290" y="47" width="80" height="20" rx="4" fill="transparent"/>
+  <text x="330" y="61" text-anchor="middle" font-family="monospace" font-size="11" fill="#4b5563">DMS</text>
+  <rect x="380" y="47" width="80" height="20" rx="4" fill="transparent"/>
+  <text x="420" y="61" text-anchor="middle" font-family="monospace" font-size="11" fill="#4b5563">EDF</text>
+
+  <!-- Left panel: Task editor -->
+  <rect x="55" y="85" width="195" height="310" rx="8" fill="#0f0f1a"/>
+  <text x="75" y="108" font-family="monospace" font-size="11" fill="#6b7280" letter-spacing="0.05em">TAREAS</text>
+
+  <!-- Task rows -->
+  <!-- τ1 -->
+  <rect x="65" y="116" width="175" height="44" rx="6" fill="#1a1a2e" stroke="#7c3aed" stroke-width="1"/>
+  <text x="78" y="132" font-family="monospace" font-size="11" fill="#a78bfa" font-weight="bold">τ₁</text>
+  <text x="100" y="132" font-family="monospace" font-size="10" fill="#6b7280">T=4  C=1  D=4</text>
+  <rect x="78" y="138" width="80" height="4" rx="2" fill="#7c3aed" opacity="0.4"/>
+  <text x="78" y="152" font-family="monospace" font-size="9" fill="#4b5563">prio: 1 (mayor)</text>
+
+  <!-- τ2 -->
+  <rect x="65" y="166" width="175" height="44" rx="6" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1"/>
+  <text x="78" y="182" font-family="monospace" font-size="11" fill="#22d3ee" font-weight="bold">τ₂</text>
+  <text x="100" y="182" font-family="monospace" font-size="10" fill="#6b7280">T=6  C=2  D=6</text>
+  <rect x="78" y="188" width="53" height="4" rx="2" fill="#06b6d4" opacity="0.4"/>
+  <text x="78" y="202" font-family="monospace" font-size="9" fill="#4b5563">prio: 2</text>
+
+  <!-- τ3 -->
+  <rect x="65" y="216" width="175" height="44" rx="6" fill="#1a1a2e" stroke="#4ade80" stroke-width="1"/>
+  <text x="78" y="232" font-family="monospace" font-size="11" fill="#4ade80" font-weight="bold">τ₃</text>
+  <text x="100" y="232" font-family="monospace" font-size="10" fill="#6b7280">T=12 C=4  D=12</text>
+  <rect x="78" y="238" width="107" height="4" rx="2" fill="#4ade80" opacity="0.4"/>
+  <text x="78" y="252" font-family="monospace" font-size="9" fill="#4b5563">prio: 3 (menor)</text>
+
+  <!-- Add task button -->
+  <rect x="65" y="268" width="175" height="28" rx="6" fill="rgba(124,58,237,0.1)" stroke="rgba(124,58,237,0.3)" stroke-width="1" stroke-dasharray="4"/>
+  <text x="152" y="286" text-anchor="middle" font-family="monospace" font-size="11" fill="#6b7280">+ Añadir tarea</text>
+
+  <!-- Analysis panel bottom-left -->
+  <rect x="65" y="305" width="175" height="78" rx="6" fill="#13131f"/>
+  <text x="78" y="322" font-family="monospace" font-size="10" fill="#6b7280" letter-spacing="0.04em">ANÁLISIS</text>
+  <text x="78" y="340" font-family="monospace" font-size="10" fill="#e2e8f0">U = 0.583</text>
+  <text x="175" y="340" text-anchor="end" font-family="monospace" font-size="9" fill="#4ade80">✓ planificable</text>
+  <text x="78" y="356" font-family="monospace" font-size="9" fill="#6b7280">Liu&Layland: 0.779</text>
+  <text x="78" y="370" font-family="monospace" font-size="9" fill="#6b7280">RTA: τ₁✓ τ₂✓ τ₃✓</text>
+
+  <!-- Right: Gantt chart -->
+  <rect x="265" y="85" width="480" height="310" rx="8" fill="#0f0f1a"/>
+  <text x="285" y="108" font-family="monospace" font-size="11" fill="#6b7280" letter-spacing="0.05em">DIAGRAMA DE GANTT  —  Hiperperiodo: 12</text>
+
+  <!-- Time axis -->
+  <line x1="285" y1="370" x2="725" y2="370" stroke="#2a2a3e" stroke-width="1"/>
+  <!-- Tick marks -->
+  <script type="text/javascript"><![CDATA[
+  ]]></script>
+  <!-- Manual ticks for t=0..12 -->
+  <!-- Each unit = 36.67px, start at x=285 -->
+  <!-- t=0 -->
+  <line x1="285" y1="368" x2="285" y2="375" stroke="#4b5563" stroke-width="1"/>
+  <text x="285" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">0</text>
+  <!-- t=1 -->
+  <line x1="322" y1="368" x2="322" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="322" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">1</text>
+  <!-- t=2 -->
+  <line x1="358" y1="368" x2="358" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="358" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">2</text>
+  <!-- t=3 -->
+  <line x1="395" y1="368" x2="395" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="395" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">3</text>
+  <!-- t=4 -->
+  <line x1="432" y1="368" x2="432" y2="375" stroke="#4b5563" stroke-width="1"/>
+  <text x="432" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">4</text>
+  <!-- t=5 -->
+  <line x1="468" y1="368" x2="468" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="468" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">5</text>
+  <!-- t=6 -->
+  <line x1="505" y1="368" x2="505" y2="375" stroke="#4b5563" stroke-width="1"/>
+  <text x="505" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">6</text>
+  <!-- t=7 -->
+  <line x1="542" y1="368" x2="542" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="542" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">7</text>
+  <!-- t=8 -->
+  <line x1="578" y1="368" x2="578" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="578" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">8</text>
+  <!-- t=9 -->
+  <line x1="615" y1="368" x2="615" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="615" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">9</text>
+  <!-- t=10 -->
+  <line x1="652" y1="368" x2="652" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="652" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">10</text>
+  <!-- t=11 -->
+  <line x1="688" y1="368" x2="688" y2="373" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="688" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">11</text>
+  <!-- t=12 -->
+  <line x1="725" y1="368" x2="725" y2="375" stroke="#4b5563" stroke-width="1"/>
+  <text x="725" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#4b5563">12</text>
+
+  <!-- Task labels -->
+  <text x="277" y="146" text-anchor="end" font-family="monospace" font-size="10" fill="#a78bfa">τ₁</text>
+  <text x="277" y="216" text-anchor="end" font-family="monospace" font-size="10" fill="#22d3ee">τ₂</text>
+  <text x="277" y="296" text-anchor="end" font-family="monospace" font-size="10" fill="#4ade80">τ₃</text>
+
+  <!-- Horizontal grid lines -->
+  <line x1="285" y1="120" x2="725" y2="120" stroke="#1a1a2e" stroke-width="1"/>
+  <line x1="285" y1="190" x2="725" y2="190" stroke="#1a1a2e" stroke-width="1"/>
+  <line x1="285" y1="260" x2="725" y2="260" stroke="#1a1a2e" stroke-width="1"/>
+
+  <!-- ── τ₁ (T=4, C=1): executes at 0, 4, 8 ── -->
+  <!-- t=0 arrival -->
+  <line x1="285" y1="120" x2="285" y2="160" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=0..1 exec -->
+  <rect x="285" y="128" width="37" height="24" rx="3" fill="url(#rms)" opacity="0.85" filter="url(#glow)"/>
+  <!-- t=4 arrival -->
+  <line x1="432" y1="120" x2="432" y2="160" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=4..5 exec -->
+  <rect x="432" y="128" width="37" height="24" rx="3" fill="url(#rms)" opacity="0.85"/>
+  <!-- t=8 arrival -->
+  <line x1="578" y1="120" x2="578" y2="160" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=8..9 exec -->
+  <rect x="578" y="128" width="37" height="24" rx="3" fill="url(#rms)" opacity="0.85"/>
+  <!-- deadlines τ₁ (t=4,8,12) -->
+  <line x1="432" y1="123" x2="432" y2="152" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="432" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#f59e0b" opacity="0.7">D</text>
+  <line x1="578" y1="123" x2="578" y2="152" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <line x1="725" y1="123" x2="725" y2="152" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+  <!-- ── τ₂ (T=6, C=2): executes at 1-3, 7-9 ── -->
+  <line x1="285" y1="190" x2="285" y2="230" stroke="#22d3ee" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=1..3 exec -->
+  <rect x="322" y="198" width="73" height="24" rx="3" fill="url(#edf)" opacity="0.85"/>
+  <!-- t=6 arrival -->
+  <line x1="505" y1="190" x2="505" y2="230" stroke="#22d3ee" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=5..7 exec (after τ₁ at t=4) -->
+  <rect x="468" y="198" width="37" height="24" rx="3" fill="url(#edf)" opacity="0.85"/>
+  <rect x="542" y="198" width="37" height="24" rx="3" fill="url(#edf)" opacity="0.85"/>
+  <!-- deadlines τ₂ -->
+  <line x1="505" y1="193" x2="505" y2="222" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="505" y="192" text-anchor="middle" font-family="monospace" font-size="8" fill="#f59e0b" opacity="0.7">D</text>
+  <line x1="725" y1="193" x2="725" y2="222" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+  <!-- ── τ₃ (T=12, C=4): fills remaining slots ── -->
+  <line x1="285" y1="260" x2="285" y2="320" stroke="#4ade80" stroke-width="1.5" opacity="0.6"/>
+  <!-- t=3..4 -->
+  <rect x="395" y="268" width="37" height="24" rx="3" fill="#166534" stroke="#4ade80" stroke-width="1" opacity="0.85"/>
+  <!-- t=7..8 -->
+  <rect x="542" y="268" width="37" height="24" rx="3" fill="#166534" stroke="#4ade80" stroke-width="1" opacity="0.85"/>
+  <!-- t=9..11 -->
+  <rect x="615" y="268" width="73" height="24" rx="3" fill="#166534" stroke="#4ade80" stroke-width="1" opacity="0.85"/>
+  <!-- deadline τ₃ -->
+  <line x1="725" y1="263" x2="725" y2="292" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="725" y="262" text-anchor="middle" font-family="monospace" font-size="8" fill="#f59e0b" opacity="0.7">D</text>
+
+  <!-- Legend -->
+  <rect x="285" y="335" width="12" height="12" rx="2" fill="#7c3aed"/>
+  <text x="302" y="345" font-family="monospace" font-size="9" fill="#6b7280">τ₁ ejecución</text>
+  <rect x="380" y="335" width="12" height="12" rx="2" fill="#06b6d4"/>
+  <text x="397" y="345" font-family="monospace" font-size="9" fill="#6b7280">τ₂ ejecución</text>
+  <rect x="475" y="335" width="12" height="12" rx="2" fill="#166534" stroke="#4ade80" stroke-width="1"/>
+  <text x="492" y="345" font-family="monospace" font-size="9" fill="#6b7280">τ₃ ejecución</text>
+  <line x1="570" y1="341" x2="582" y2="341" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"/>
+  <text x="587" y="345" font-family="monospace" font-size="9" fill="#6b7280">llegada</text>
+  <line x1="630" y1="341" x2="642" y2="341" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="647" y="345" font-family="monospace" font-size="9" fill="#6b7280">plazo</text>
+
+  <!-- Title -->
+  <text x="400" y="422" text-anchor="middle" font-family="monospace" font-size="14" fill="#a78bfa" font-weight="bold" filter="url(#glow)">⏱ Planificador Tiempo Real</text>
+  <text x="400" y="438" text-anchor="middle" font-family="monospace" font-size="10" fill="#4b5563">React · TypeScript · RMS · DMS · EDF · Vitest</text>
+</svg>

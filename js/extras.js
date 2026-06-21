@@ -951,3 +951,267 @@ function activateDemo(name) {
     if (tab) tab.classList.add('active');
     if (panel) panel.classList.remove('hidden');
 }
+
+/* ========================================================
+   RT SCHEDULER DEMO — v3.4
+   ======================================================== */
+(function () {
+    const COLORS = ['#7c3aed','#06b6d4','#4ade80','#f59e0b','#f87171'];
+    const PRESETS = {
+        classic: [
+            { T:4,  C:1, D:4  },
+            { T:6,  C:2, D:6  },
+            { T:12, C:4, D:12 },
+        ],
+        fail: [
+            { T:5,  C:2, D:5  },
+            { T:7,  C:4, D:7  },
+        ],
+        tight: [
+            { T:4,  C:1, D:3  },
+            { T:6,  C:2, D:5  },
+            { T:10, C:3, D:8  },
+        ],
+    };
+
+    let tasks = PRESETS.classic.map((t,i) => ({ ...t, id:i }));
+    let algo = 'RMS';
+    let nextId = tasks.length;
+
+    const $ = id => document.getElementById(id);
+
+    /* ---- helpers ---- */
+    function gcd(a,b){ return b===0?a:gcd(b,a%b); }
+    function lcm(a,b){ return a/gcd(a,b)*b; }
+    function hyperperiod(ts){ return ts.reduce((h,t)=>lcm(h,t.T),1); }
+
+    function utilization(ts){ return ts.reduce((u,t)=>u+t.C/t.T,0); }
+
+    function priority(t,alg){
+        if(alg==='RMS') return t.T;
+        if(alg==='DMS') return t.D;
+        return Infinity; // EDF: dynamic
+    }
+
+    function simulate(ts, alg){
+        if(!ts.length) return [];
+        const H = Math.min(hyperperiod(ts), 60); // cap at 60 for perf
+        const timeline = []; // array of {t, taskId, deadline_miss}
+        // jobs: {taskId, release, deadline, remaining}
+        const jobs = [];
+        const misses = new Set();
+
+        for(let t=0;t<H;t++){
+            // release jobs
+            ts.forEach((task,i) => {
+                if(t % task.T === 0){
+                    jobs.push({ taskId:i, release:t, deadline:t+task.D, remaining:task.C });
+                }
+            });
+            // check deadline misses
+            jobs.forEach(j => {
+                if(j.remaining>0 && j.deadline<=t) misses.add(j.taskId+'-'+j.release);
+            });
+            // filter active jobs (remaining > 0 and not past deadline)
+            const active = jobs.filter(j=>j.remaining>0);
+            if(!active.length){ timeline.push({t, taskId:-1, miss:false}); continue; }
+
+            // pick job to run
+            let chosen;
+            if(alg==='EDF'){
+                chosen = active.reduce((a,b)=>a.deadline<b.deadline?a:b);
+            } else {
+                // fixed priority by T (RMS) or D (DMS) — smaller = higher
+                active.sort((a,b)=>{
+                    const ta=ts[a.taskId], tb=ts[b.taskId];
+                    return priority(ta,alg)-priority(tb,alg);
+                });
+                chosen = active[0];
+            }
+            const miss = misses.has(chosen.taskId+'-'+chosen.release);
+            timeline.push({t, taskId:chosen.taskId, miss});
+            chosen.remaining--;
+        }
+        return {timeline, H, misses};
+    }
+
+    function analysis(ts, alg){
+        const U = utilization(ts);
+        const n = ts.length;
+        const ll = n*(Math.pow(2,1/n)-1);
+        const lines = [];
+        lines.push(`U = ${U.toFixed(3)} (${(U*100).toFixed(1)}%)`);
+        if(alg==='EDF'){
+            const ok = U<=1;
+            lines.push(`Condición EDF (U≤1): <span class="${ok?'rts-ok':'rts-fail'}">${ok?'✓ planificable':'✗ no planificable'}</span>`);
+        } else {
+            lines.push(`Liu &amp; Layland: ${ll.toFixed(3)}`);
+            const suf = U<=ll;
+            lines.push(`Test suficiente: <span class="${suf?'rts-ok':'rts-warn'}">${suf?'✓ pasa':'⚠ no concluyente'}</span>`);
+            // RTA
+            let rtaOk = true;
+            ts.forEach((t,i)=>{
+                let R=t.C;
+                for(let iter=0;iter<50;iter++){
+                    const prev=R;
+                    R=t.C+ts.slice(0,i).reduce((s,tj)=>s+Math.ceil(R/tj.T)*tj.C,0);
+                    if(R===prev) break;
+                }
+                if(R>t.D) rtaOk=false;
+            });
+            lines.push(`RTA: <span class="${rtaOk?'rts-ok':'rts-fail'}">${rtaOk?'✓ todas cumplen plazo':'✗ alguna tarea falla'}</span>`);
+        }
+        return lines;
+    }
+
+    /* ---- render tasks ---- */
+    function renderTasks(){
+        const el = $('rts-task-list'); if(!el) return;
+        if(!tasks.length){ el.innerHTML='<p class="sv-empty" style="font-size:.78rem">Sin tareas</p>'; return; }
+        el.innerHTML = `
+            <div class="rts-task-headers">
+                <span>T (periodo)</span><span>C (cómputo)</span><span>D (plazo)</span><span></span>
+            </div>` +
+            tasks.map((t,i)=>`
+            <div class="rts-task-row" data-idx="${i}">
+                <input class="rts-task-input" data-field="T" value="${t.T}" min="1" max="60" type="number"
+                    style="border-color:${COLORS[i%COLORS.length]}44">
+                <input class="rts-task-input" data-field="C" value="${t.C}" min="1" max="30" type="number">
+                <input class="rts-task-input" data-field="D" value="${t.D}" min="1" max="60" type="number">
+                <button class="rts-del-task" data-idx="${i}" title="Eliminar τ${i+1}">✕</button>
+            </div>`).join('');
+
+        el.querySelectorAll('.rts-task-input').forEach(inp=>{
+            inp.addEventListener('change',()=>{
+                const row = inp.closest('[data-idx]');
+                const idx = +row.dataset.idx;
+                const field = inp.dataset.field;
+                const val = Math.max(1,parseInt(inp.value)||1);
+                tasks[idx][field] = val;
+                inp.value = val;
+                render();
+            });
+        });
+        el.querySelectorAll('.rts-del-task').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                tasks.splice(+btn.dataset.idx,1);
+                renderTasks(); render();
+            });
+        });
+    }
+
+    /* ---- render gantt ---- */
+    function renderGantt(simResult){
+        const el = $('rts-gantt'); if(!el) return;
+        if(!simResult || !simResult.timeline.length){
+            el.innerHTML='<p class="sv-empty">Añade tareas para ver el diagrama.</p>'; return;
+        }
+        const {timeline,H} = simResult;
+        const ROW=28, PAD_TOP=30, PAD_LEFT=30, PAD_RIGHT=20, PAD_BOT=30;
+        const CELL = Math.min(36, Math.max(18, Math.floor(560/H)));
+        const W = PAD_LEFT + H*CELL + PAD_RIGHT;
+        const svgH = PAD_TOP + tasks.length*ROW + PAD_BOT + 20;
+
+        let svg = `<svg width="${W}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" style="font-family:monospace">`;
+
+        // task labels
+        tasks.forEach((_,i)=>{
+            svg+=`<text x="${PAD_LEFT-4}" y="${PAD_TOP+i*ROW+ROW/2+4}" text-anchor="end" font-size="11" fill="${COLORS[i%COLORS.length]}">τ${i+1}</text>`;
+        });
+
+        // time axis
+        for(let t=0;t<=H;t++){
+            const x=PAD_LEFT+t*CELL;
+            svg+=`<line x1="${x}" y1="${PAD_TOP}" x2="${x}" y2="${PAD_TOP+tasks.length*ROW}" stroke="#1e1e3a" stroke-width="1"/>`;
+            if(t%2===0||CELL>=24){
+                svg+=`<text x="${x}" y="${PAD_TOP+tasks.length*ROW+14}" text-anchor="middle" font-size="9" fill="#4b5563">${t}</text>`;
+            }
+        }
+
+        // task arrivals (release times)
+        tasks.forEach((task,i)=>{
+            for(let t=0;t<H;t+=task.T){
+                const x=PAD_LEFT+t*CELL;
+                svg+=`<line x1="${x}" y1="${PAD_TOP+i*ROW}" x2="${x}" y2="${PAD_TOP+i*ROW+ROW}" stroke="${COLORS[i%COLORS.length]}" stroke-width="1.5" opacity="0.5"/>`;
+            }
+            // deadlines
+            for(let t=task.D;t<=H;t+=task.T){
+                const x=PAD_LEFT+t*CELL;
+                svg+=`<line x1="${x}" y1="${PAD_TOP+i*ROW}" x2="${x}" y2="${PAD_TOP+i*ROW+ROW}" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>`;
+            }
+        });
+
+        // execution blocks
+        timeline.forEach(({t,taskId,miss})=>{
+            if(taskId<0) return;
+            const color = miss ? '#f87171' : COLORS[taskId%COLORS.length];
+            const x=PAD_LEFT+t*CELL, y=PAD_TOP+taskId*ROW;
+            svg+=`<rect x="${x+1}" y="${y+4}" width="${CELL-2}" height="${ROW-8}" rx="3" fill="${color}" opacity="${miss?1:0.85}"/>`;
+        });
+
+        svg+=`</svg>`;
+        el.innerHTML=svg;
+    }
+
+    /* ---- render analysis ---- */
+    function renderAnalysis(){
+        const el=$('rts-analysis'); if(!el) return;
+        if(!tasks.length){ el.innerHTML=''; return; }
+        const lines = analysis(tasks,algo);
+        el.innerHTML = lines.join('<br>');
+    }
+
+    /* ---- render legend ---- */
+    function renderLegend(){
+        const el=$('rts-legend'); if(!el) return;
+        let html = tasks.map((t,i)=>`
+            <div class="rts-legend-item">
+                <div class="rts-legend-color" style="background:${COLORS[i%COLORS.length]}"></div>
+                τ${i+1} (T=${t.T}, C=${t.C}, D=${t.D})
+            </div>`).join('');
+        html+=`<div class="rts-legend-item"><div class="rts-legend-color" style="background:#f87171"></div>incumplimiento</div>`;
+        html+=`<div class="rts-legend-item" style="align-items:center">
+            <svg width="14" height="14"><line x1="7" y1="0" x2="7" y2="14" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+            plazo (D)
+        </div>`;
+        el.innerHTML=html;
+    }
+
+    function render(){
+        renderTasks();
+        if(!tasks.length){ $('rts-gantt').innerHTML='<p class="sv-empty">Añade tareas para ver el diagrama.</p>'; renderAnalysis(); return; }
+        const sim = simulate(tasks,algo);
+        renderGantt(sim);
+        renderAnalysis();
+        renderLegend();
+    }
+
+    /* ---- algo tabs ---- */
+    document.querySelectorAll('.rts-algo').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            document.querySelectorAll('.rts-algo').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            algo=btn.dataset.algo;
+            render();
+        });
+    });
+
+    /* ---- presets ---- */
+    document.querySelectorAll('.rts-preset').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            const p=PRESETS[btn.dataset.preset];
+            if(p){ tasks=p.map((t,i)=>({...t,id:i})); nextId=tasks.length; render(); }
+        });
+    });
+
+    /* ---- add task ---- */
+    const addBtn=$('rts-add-task');
+    if(addBtn) addBtn.addEventListener('click',()=>{
+        if(tasks.length>=5) return;
+        tasks.push({id:nextId++,T:8,C:2,D:8});
+        render();
+    });
+
+    // initial render
+    render();
+})();
