@@ -27,7 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=3.0">
+    <link rel="stylesheet" href="css/styles.css?v=3.1">
     <link rel="manifest" href="site.webmanifest">
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="portafolio, ingeniero informatico, Rodrigo de la Hoz, desarrollador full-stack, Java, Python, JavaScript, SQL, bases de datos">
@@ -60,6 +60,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-mi">Sobre mí</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#snipvault-demo">SnipVault</a></li>
                 <li><a href="#experiencia">Experiencia</a></li>
                 <li><a href="#approach">Enfoque</a></li>
                 <li><a href="#contacto">Contacto</a></li>
@@ -604,6 +605,68 @@
                 <button id="pokedex-random" class="btn-outline" type="button"><i class="fas fa-dice"></i> Aleatorio</button>
             </div>
             <div id="pokedex-card" class="pokedex-card" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <section id="snipvault-demo" class="snipvault-demo">
+        <div class="container">
+            <h2 class="section-title">SnipVault — Demo en vivo</h2>
+            <p class="pokedex-intro">API REST real desplegada en Render. Crea una cuenta, guarda snippets y explora la <a href="https://snipvault-api.onrender.com/docs" target="_blank" rel="noopener">documentación Swagger</a> generada automáticamente.</p>
+            <div class="sv-demo-wrapper">
+                <!-- Auth panel -->
+                <div class="sv-auth-panel" id="sv-auth-panel">
+                    <div class="sv-tabs">
+                        <button class="sv-tab active" data-tab="login">Iniciar sesión</button>
+                        <button class="sv-tab" data-tab="register">Registrarse</button>
+                    </div>
+                    <div class="sv-tab-content" id="sv-tab-login">
+                        <input class="sv-input" id="sv-login-user" placeholder="Usuario" autocomplete="off" spellcheck="false">
+                        <input class="sv-input" id="sv-login-pass" placeholder="Contraseña" type="password">
+                        <button class="btn-primary sv-btn" id="sv-login-btn"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                        <p class="sv-hint">¿No tienes cuenta? Regístrate en segundos →</p>
+                    </div>
+                    <div class="sv-tab-content hidden" id="sv-tab-register">
+                        <input class="sv-input" id="sv-reg-user" placeholder="Usuario" autocomplete="off" spellcheck="false">
+                        <input class="sv-input" id="sv-reg-pass" placeholder="Contraseña" type="password">
+                        <button class="btn-primary sv-btn" id="sv-reg-btn"><i class="fas fa-user-plus"></i> Crear cuenta</button>
+                    </div>
+                    <div id="sv-auth-msg" class="sv-msg" aria-live="polite"></div>
+                </div>
+
+                <!-- App panel (hidden until logged in) -->
+                <div class="sv-app-panel hidden" id="sv-app-panel">
+                    <div class="sv-app-header">
+                        <span id="sv-welcome" class="sv-welcome">🦭 Bienvenido</span>
+                        <div class="sv-header-actions">
+                            <input class="sv-input sv-search" id="sv-search" placeholder="🔍 Buscar snippets…" autocomplete="off" spellcheck="false">
+                            <button class="btn-outline sv-btn-sm" id="sv-logout-btn">Salir</button>
+                        </div>
+                    </div>
+
+                    <!-- New snippet form -->
+                    <div class="sv-new-form" id="sv-new-form">
+                        <div class="sv-form-row">
+                            <input class="sv-input" id="sv-new-title" placeholder="Título del snippet" autocomplete="off" spellcheck="false">
+                            <select class="sv-input sv-select" id="sv-new-lang">
+                                <option value="">Lenguaje</option>
+                                <option>Python</option><option>JavaScript</option><option>TypeScript</option>
+                                <option>Java</option><option>SQL</option><option>Bash</option><option>HTML</option><option>CSS</option><option>Otro</option>
+                            </select>
+                        </div>
+                        <textarea class="sv-input sv-textarea" id="sv-new-code" placeholder="Pega tu código aquí…" spellcheck="false"></textarea>
+                        <div class="sv-form-row">
+                            <input class="sv-input" id="sv-new-tags" placeholder="Etiquetas separadas por comas (ej: api, utils)" autocomplete="off" spellcheck="false">
+                            <button class="btn-primary sv-btn-sm" id="sv-save-btn"><i class="fas fa-save"></i> Guardar</button>
+                        </div>
+                        <div id="sv-save-msg" class="sv-msg" aria-live="polite"></div>
+                    </div>
+
+                    <!-- Snippets list -->
+                    <div id="sv-snippets-list" class="sv-snippets-list" aria-live="polite">
+                        <p class="sv-empty">Cargando snippets…</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 

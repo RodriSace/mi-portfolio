@@ -592,3 +592,202 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%cPulsa ⌘K (o Ctrl+K) para la paleta de comandos, o «`» para mi terminal interactiva.', 'color:#3b82f6;font-size:13px;');
     console.log('%c…y prueba el código Konami: ↑ ↑ ↓ ↓ ← → ← → B A', 'color:#a1a1aa;font-size:12px;');
 });
+
+/* ============================================================
+   SNIPVAULT DEMO — v3.1
+   ============================================================ */
+(function () {
+    const API = 'https://snipvault-api.onrender.com';
+    let token = null;
+    let searchTimeout = null;
+
+    const $ = id => document.getElementById(id);
+
+    // --- helpers ---
+    function setMsg(id, text, type) {
+        const el = $(id);
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'sv-msg ' + (type || '');
+    }
+    async function apiFetch(path, opts = {}) {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = 'Bearer ' + token;
+        const r = await fetch(API + path, { ...opts, headers });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.detail || 'Error ' + r.status);
+        return data;
+    }
+
+    // --- tabs ---
+    document.querySelectorAll('.sv-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.sv-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.dataset.tab;
+            $('sv-tab-login').classList.toggle('hidden', tab !== 'login');
+            $('sv-tab-register').classList.toggle('hidden', tab !== 'register');
+            setMsg('sv-auth-msg', '');
+        });
+    });
+
+    // --- register ---
+    const regBtn = $('sv-reg-btn');
+    if (regBtn) regBtn.addEventListener('click', async () => {
+        const username = $('sv-reg-user').value.trim();
+        const password = $('sv-reg-pass').value;
+        if (!username || !password) return setMsg('sv-auth-msg', 'Rellena usuario y contraseña', 'err');
+        regBtn.disabled = true;
+        try {
+            await apiFetch('/auth/register', { method: 'POST', body: JSON.stringify({ username, password }) });
+            setMsg('sv-auth-msg', '✅ Cuenta creada. Ahora inicia sesión.', 'ok');
+            // switch to login tab
+            document.querySelector('.sv-tab[data-tab="login"]').click();
+            $('sv-login-user').value = username;
+        } catch (e) { setMsg('sv-auth-msg', '❌ ' + e.message, 'err'); }
+        finally { regBtn.disabled = false; }
+    });
+
+    // --- login ---
+    const loginBtn = $('sv-login-btn');
+    if (loginBtn) loginBtn.addEventListener('click', async () => {
+        const username = $('sv-login-user').value.trim();
+        const password = $('sv-login-pass').value;
+        if (!username || !password) return setMsg('sv-auth-msg', 'Rellena usuario y contraseña', 'err');
+        loginBtn.disabled = true;
+        try {
+            const body = new URLSearchParams({ username, password });
+            const r = await fetch(API + '/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body
+            });
+            const data = await r.json().catch(() => ({}));
+            if (!r.ok) throw new Error(data.detail || 'Credenciales incorrectas');
+            token = data.access_token;
+            $('sv-welcome').textContent = '🦭 Hola, ' + username;
+            $('sv-auth-panel').classList.add('hidden');
+            $('sv-app-panel').classList.remove('hidden');
+            loadSnippets();
+        } catch (e) { setMsg('sv-auth-msg', '❌ ' + e.message, 'err'); }
+        finally { loginBtn.disabled = false; }
+    });
+
+    // --- logout ---
+    const logoutBtn = $('sv-logout-btn');
+    if (logoutBtn) logoutBtn.addEventListener('click', () => {
+        token = null;
+        $('sv-app-panel').classList.add('hidden');
+        $('sv-auth-panel').classList.remove('hidden');
+        $('sv-login-user').value = '';
+        $('sv-login-pass').value = '';
+        setMsg('sv-auth-msg', '');
+    });
+
+    // --- load snippets ---
+    async function loadSnippets(q = '') {
+        const list = $('sv-snippets-list');
+        if (!list) return;
+        list.innerHTML = '<p class="sv-empty">Cargando…</p>';
+        try {
+            const params = q ? '?q=' + encodeURIComponent(q) : '';
+            const snippets = await apiFetch('/snippets' + params);
+            renderSnippets(snippets);
+        } catch (e) {
+            list.innerHTML = '<p class="sv-empty" style="color:#f87171">Error al cargar: ' + e.message + '</p>';
+        }
+    }
+
+    function renderSnippets(snippets) {
+        const list = $('sv-snippets-list');
+        if (!snippets.length) { list.innerHTML = '<p class="sv-empty">No hay snippets aún. ¡Guarda el primero! 👆</p>'; return; }
+        list.innerHTML = snippets.map(s => `
+            <div class="sv-card" data-id="${s.id}">
+                <div class="sv-card-header">
+                    <span class="sv-card-title">${escHtml(s.title)}</span>
+                    ${s.language ? `<span class="sv-lang-badge">${escHtml(s.language)}</span>` : ''}
+                </div>
+                <pre class="sv-card-code">${escHtml(s.code)}</pre>
+                <div class="sv-card-footer">
+                    ${(s.tags || []).map(t => `<span class="sv-tag">${escHtml(t.name)}</span>`).join('')}
+                    <div class="sv-card-actions">
+                        <button class="sv-icon-btn sv-copy-btn" title="Copiar"><i class="fas fa-copy"></i></button>
+                        <button class="sv-icon-btn sv-fav-btn ${s.is_favorite ? 'active' : ''}" data-id="${s.id}" title="Favorito"><i class="fas fa-star"></i></button>
+                        <button class="sv-icon-btn sv-del-btn" data-id="${s.id}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>`).join('');
+
+        // copy buttons
+        list.querySelectorAll('.sv-copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.closest('.sv-card').querySelector('.sv-card-code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i>', 1500);
+                });
+            });
+        });
+        // fav buttons
+        list.querySelectorAll('.sv-fav-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                const isFav = btn.classList.contains('active');
+                try {
+                    await apiFetch('/snippets/' + id, { method: 'PATCH', body: JSON.stringify({ is_favorite: !isFav }) });
+                    btn.classList.toggle('active');
+                } catch (e) { console.error(e); }
+            });
+        });
+        // delete buttons
+        list.querySelectorAll('.sv-del-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                if (!confirm('¿Eliminar este snippet?')) return;
+                try {
+                    await apiFetch('/snippets/' + id, { method: 'DELETE' });
+                    btn.closest('.sv-card').remove();
+                    if (!$('sv-snippets-list').querySelector('.sv-card'))
+                        $('sv-snippets-list').innerHTML = '<p class="sv-empty">No hay snippets aún. ¡Guarda el primero! 👆</p>';
+                } catch (e) { console.error(e); }
+            });
+        });
+    }
+
+    // --- save snippet ---
+    const saveBtn = $('sv-save-btn');
+    if (saveBtn) saveBtn.addEventListener('click', async () => {
+        const title = $('sv-new-title').value.trim();
+        const code = $('sv-new-code').value.trim();
+        const language = $('sv-new-lang').value || null;
+        const tagsRaw = $('sv-new-tags').value.trim();
+        const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+        if (!title || !code) return setMsg('sv-save-msg', 'Título y código son obligatorios', 'err');
+        saveBtn.disabled = true;
+        try {
+            await apiFetch('/snippets', { method: 'POST', body: JSON.stringify({ title, code, language, tags }) });
+            setMsg('sv-save-msg', '✅ Snippet guardado', 'ok');
+            $('sv-new-title').value = ''; $('sv-new-code').value = '';
+            $('sv-new-tags').value = ''; $('sv-new-lang').value = '';
+            setTimeout(() => setMsg('sv-save-msg', ''), 2500);
+            loadSnippets();
+        } catch (e) { setMsg('sv-save-msg', '❌ ' + e.message, 'err'); }
+        finally { saveBtn.disabled = false; }
+    });
+
+    // --- search ---
+    const searchInput = $('sv-search');
+    if (searchInput) searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => loadSnippets(searchInput.value.trim()), 350);
+    });
+
+    // --- enter key on login ---
+    [$('sv-login-pass'), $('sv-login-user')].forEach(el => {
+        if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
+    });
+
+    function escHtml(str) {
+        return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+})();
