@@ -938,3 +938,13 @@ document.querySelectorAll('.demo-tab').forEach(btn => {
     const filterEl = $('isi-filter');
     if (filterEl) filterEl.addEventListener('change', doSearch);
 })();
+
+/* activateDemo — called from project cards */
+function activateDemo(name) {
+    document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.demo-panel').forEach(p => p.classList.add('hidden'));
+    const tab = document.querySelector('.demo-tab[data-demo="' + name + '"]');
+    const panel = document.getElementById('demo-' + name);
+    if (tab) tab.classList.add('active');
+    if (panel) panel.classList.remove('hidden');
+}

@@ -2327,3 +2327,15 @@ footer {
 .isi-card-name { font-weight:600; color:#e2e8f0; font-size:.9rem; }
 .isi-card-meta { color:#6b7280; font-size:.78rem; margin-top:.2rem; }
 .isi-card-year { color:#4b5563; font-size:.82rem; margin-left:auto; }
+
+/* Demo button en cards de proyectos */
+.proyecto-btns { display: flex; gap: .6rem; flex-wrap: wrap; }
+.btn-demo {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .55rem 1.1rem; border-radius: 8px;
+    background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.4);
+    color: #a78bfa; font-size: .8rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: all .2s;
+    letter-spacing: .04em; text-transform: uppercase;
+}
+.btn-demo:hover { background: rgba(124,58,237,.3); border-color: #7c3aed; color: #c4b5fd; }
