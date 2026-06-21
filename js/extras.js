@@ -687,12 +687,13 @@ document.querySelectorAll('.demo-tab').forEach(btn => {
     if (searchEl) searchEl.addEventListener('input', () => {
         clearTimeout(searchT);
         searchT = setTimeout(() => {
-            const q = searchEl.value.trim().toLowerCase();
+            const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+            const q = norm(searchEl.value.trim());
             renderSnippets(q ? snippets.filter(s =>
-                s.title.toLowerCase().includes(q) ||
-                s.code.toLowerCase().includes(q) ||
-                (s.language||'').toLowerCase().includes(q) ||
-                s.tags.some(t => t.toLowerCase().includes(q))
+                norm(s.title).includes(q) ||
+                norm(s.code).includes(q) ||
+                norm(s.language||'').includes(q) ||
+                s.tags.some(t => norm(t).includes(q))
             ) : snippets);
         }, 250);
     });
@@ -801,11 +802,12 @@ document.querySelectorAll('.demo-tab').forEach(btn => {
     const searchInput = $('gr-search');
     if (searchInput) searchInput.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
+    function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
     function doSearch() {
-        const q = ($('gr-search')||{}).value.trim().toLowerCase();
+        const q = norm(($('gr-search')||{}).value.trim());
         const el = $('gr-results'); if (!el) return;
         const results = q ? CATALOG.filter(s =>
-            s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q)
+            norm(s.title).includes(q) || norm(s.artist).includes(q)
         ).slice(0,4) : [];
         if (!results.length && q) { el.innerHTML='<p class="sv-empty" style="font-size:.82rem">Sin resultados para "'+q+'"</p>'; return; }
         el.innerHTML = results.map((s,i) => `
@@ -920,13 +922,14 @@ document.querySelectorAll('.demo-tab').forEach(btn => {
             </div>`).join('');
     }
 
+    function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
     function doSearch() {
-        const q = ($('isi-search')||{}).value.trim().toLowerCase();
+        const q = norm(($('isi-search')||{}).value.trim());
         const filter = ($('isi-filter')||{}).value || 'all';
         if (!q) { $('isi-results').innerHTML='<p class="sv-empty">Introduce un término para buscar.</p>'; return; }
         const results = DB.filter(r =>
             (filter==='all' || r.type===filter) &&
-            (r.name.toLowerCase().includes(q) || r.meta.toLowerCase().includes(q))
+            (norm(r.name).includes(q) || norm(r.meta).includes(q))
         );
         renderResults(results);
     }
