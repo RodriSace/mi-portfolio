@@ -344,6 +344,25 @@ document.addEventListener('DOMContentLoaded', () => {
                    <p class="muted">Tecnologías: React.js, Node.js, Express, Spotify Web API, CSS Modules</p>
                    <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         },
+        tiny8: {
+            title: 'tiny8 — Emulador de CPU de 8 bits',
+            body: `<p>Una CPU de 8 bits construida desde cero: ISA propia, ensamblador con soporte de etiquetas y resolución de saltos, y simulador visual interactivo en el navegador.</p>
+                   <p><strong>Qué incluye:</strong></p>
+                   <ul>
+                       <li>ISA de 8 instrucciones (NOP, LDA, STA, ADD, SUB, JMP, JZ, HLT) con formato de 2 bytes.</li>
+                       <li>Ensamblador en TypeScript con dos pasadas: primera para recoger etiquetas, segunda para generar bytecode.</li>
+                       <li>Emulador del ciclo fetch-decode-execute con registros A, PC, SP y flags Z/C.</li>
+                       <li>Simulador visual con vista de registros, memoria (256 B), listing anotado y salida en tiempo real.</li>
+                       <li>Programas de ejemplo preinstalados: Fibonacci, contador, eco.</li>
+                       <li>Tests unitarios con Vitest sobre CPU y ensamblador. CI + despliegue automático en GitHub Pages.</li>
+                   </ul>
+                   <p class="muted">Tecnologías: React 18, TypeScript 5, Vite, Vitest, GitHub Actions</p>
+                   <p>
+                       <a href="https://rodrisace.github.io/tiny8/" target="_blank" rel="noopener">Demo en vivo</a>
+                       &nbsp;·&nbsp;
+                       <a href="https://github.com/RodriSace/tiny8" target="_blank" rel="noopener">Ver Repositorio</a>
+                   </p>`
+        },
         rt_scheduler: {
             title: 'Planificador Tiempo Real — RMS / DMS / EDF',
             body: `<p>Simulador interactivo de planificación de sistemas en tiempo real, construido como herramienta de estudio y demostración de los algoritmos clásicos.</p>
