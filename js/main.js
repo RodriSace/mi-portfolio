@@ -341,8 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
                        <li>Generación en tiempo real de renders en 3D del disco y la portada.</li>
                        <li>Interfaz moderna enfocada en la personalización de usuario (UX/UI).</li>
                    </ul>
-                   <p class="muted">Tecnologías: React.js, Node.js, Express, Spotify Web API, CSS Modules</p>
-                   <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+                   <p class="muted">Tecnologías: Java SE, JDBC, MySQL, HTML5, CSS3</p>
+                   <p><a href="https://github.com/AlbertoPalenciaQuinones/ISI-LAB" target="_blank" rel="noopener">Ver Repositorio</a> · <a href="#demos" onclick="activateDemo('isilab'); return false;">Demo interactiva</a></p>`
         },
         tiny8: {
             title: 'tiny8 — Emulador de CPU de 8 bits',
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
                        <li>Operaciones CRUD completas y seguras.</li>
                    </ul>
                    <p class="muted">Tecnologías: Java SE, JDBC, MySQL, HTML5, CSS3</p>
-                   <p><a href="https://github.com/rodrisace" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+                   <p><a href="https://github.com/AlbertoPalenciaQuinones/ISI-LAB" target="_blank" rel="noopener">Ver Repositorio</a> · <a href="#demos" onclick="activateDemo('isilab'); return false;">Demo interactiva</a></p>`
         }
     };
 
