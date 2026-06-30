@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificador Tiempo Real — Demo</title>
+    <link rel="stylesheet" href="css/styles.css?v=3.8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: var(--bg-primary, #0a0a14); min-height: 100vh; padding: 2rem 1rem; }
+        .demo-page-header { text-align: center; margin-bottom: 2rem; }
+        .demo-page-header h1 { font-size: 1.8rem; color: #e2e8f0; margin-bottom: .5rem; }
+        .demo-page-header p { color: #6b7280; font-size: .9rem; }
+        .demo-page-header .back-link { display: inline-flex; align-items: center; gap: .4rem; color: #a78bfa; text-decoration: none; font-size: .85rem; margin-bottom: 1.5rem; }
+        .demo-page-header .back-link:hover { color: #c4b5fd; }
+        .demo-container { max-width: 1100px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+<div class="demo-container">
+    <div class="demo-page-header">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al portfolio</a>
+        <h1>⏱ Planificador Tiempo Real</h1>
+        <p>Simulador interactivo de RMS, DMS y EDF con diagrama de Gantt · Cambia el algoritmo y edita las tareas</p>
+    </div>
+    <div class="rts-wrapper">
+        <div class="rts-controls-panel">
+            <div class="rts-section-title">Algoritmo</div>
+            <div class="rts-algo-tabs">
+                <button class="rts-algo active" data-algo="RMS">RMS</button>
+                <button class="rts-algo" data-algo="DMS">DMS</button>
+                <button class="rts-algo" data-algo="EDF">EDF</button>
+            </div>
+            <div class="rts-section-title" style="margin-top:1rem">Presets</div>
+            <div class="rts-presets">
+                <button class="rts-preset" data-preset="classic">Clásico (3 tareas)</button>
+                <button class="rts-preset" data-preset="fail">RMS falla / EDF ok</button>
+                <button class="rts-preset" data-preset="tight">Plazos ajustados</button>
+            </div>
+            <div class="rts-section-title" style="margin-top:1rem">Tareas</div>
+            <div id="rts-task-list" class="rts-task-list"></div>
+            <button class="btn-outline sv-btn-sm" id="rts-add-task" style="margin-top:.5rem;width:100%">+ Añadir tarea</button>
+            <div id="rts-analysis" class="rts-analysis"></div>
+        </div>
+        <div class="rts-gantt-panel">
+            <div class="rts-section-title">Diagrama de Gantt</div>
+            <div id="rts-gantt" class="rts-gantt" aria-live="polite"></div>
+            <div id="rts-legend" class="rts-legend"></div>
+        </div>
+    </div>
+</div>
+<script src="js/extras.js"></script>
+</body>
+</html>
