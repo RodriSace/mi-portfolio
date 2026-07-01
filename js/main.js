@@ -329,17 +329,18 @@ document.addEventListener('DOMContentLoaded', () => {
                        <li>Filtros y motores de búsqueda avanzados.</li>
                    </ul>
                    <p class="muted">Tecnologías: HTML5, CSS3, JavaScript puro (Vanilla JS), PokeAPI</p>
-                   <p><a href="pokemon-demo.html" target="_blank">Demo Local</a> • <a href="https://github.com/rodrisace/ProyectoPokemon" target="_blank" rel="noopener">Ver Repositorio</a></p>`
+                   <p><a href="pokemon-demo.html" target="_blank">Demo Local</a> • <a href="https://github.com/RodriSace/ProyectoPokemon" target="_blank" rel="noopener">Ver Repositorio</a></p>`
         },
         spotify_vinyl: {
             title: 'Spotify to Vinyl',
-            body: `<p>Plataforma innovadora que permite a los amantes de la música tangibilizar sus gustos digitales convirtiendo playlists de Spotify en diseños de discos de vinilo coleccionables personalizados.</p>
+            body: `<p>Base de datos relacional y motor de búsqueda musical: gestiona artistas, álbumes y pistas con consultas SQL optimizadas y una interfaz de exploración ágil.</p>
                    <p><strong>Características clave:</strong></p>
                    <ul>
-                       <li>Autenticación OAuth2 segura con Spotify.</li>
-                       <li>Análisis de metadatos de playlists para determinar colores predominantes y diseño artístico automático.</li>
-                       <li>Generación en tiempo real de renders en 3D del disco y la portada.</li>
-                       <li>Interfaz moderna enfocada en la personalización de usuario (UX/UI).</li>
+                       <li>Modelo relacional normalizado en MySQL: artistas, álbumes, pistas, géneros y playlists con integridad referencial.</li>
+                       <li>Acceso a datos con JDBC y consultas parametrizadas (joins multi-tabla, filtros por tipo, ordenación).</li>
+                       <li>Buscador por artista, álbum o canción con filtros combinables.</li>
+                       <li>Editor de consultas SQL con resultados en tiempo real sobre el catálogo.</li>
+                       <li>Proyecto en equipo — desarrollado junto a Alberto Palencia.</li>
                    </ul>
                    <p class="muted">Tecnologías: Java SE, JDBC, MySQL, HTML5, CSS3</p>
                    <p><a href="https://github.com/AlbertoPalenciaQuinones/ISI-LAB" target="_blank" rel="noopener">Ver Repositorio</a> · <a href="#demos" onclick="activateDemo('isilab'); return false;">Demo interactiva</a></p>`
